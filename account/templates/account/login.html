@@ -1,0 +1,71 @@
+{% extends 'account/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %} 
+
+
+{% block reg %}
+<div class="w3layouts-main"> 
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100 p-l-50 p-r-50 p-t-77 p-b-30">
+				<form method="POST" action="{% url 'login' %}" class="login100-form validate-form">
+				{% csrf_token %}
+					{% if request.GET.next %}
+					<input type="hidden" name="next" value="{{ request.GET.next }}">
+					{% endif %}
+					<span class="login100-form-title p-b-55">
+						Login
+					</span>
+
+					<div class="wrap-input100 m-b-16">
+						<input class="input100" type="text" name="username" placeholder="Username">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<span class="fa fa-user"></span>
+						</span>
+					</div>
+
+					<div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
+						<input class="input100" type="password" name="password" placeholder="Password">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<span class="fa fa-lock"></span>
+						</span>
+					</div>
+						{% if messages %}
+						{% for message in messages %}
+						<div class="alert alert-danger ml-2">
+						{{ message }}
+						</div>
+						{% endfor %}
+						{% endif %}
+					<div class="container-login100-form-btn p-t-8">
+						<button class="login100-form-btn" type="submit">
+						Login &nbsp;<i class="fa fa-sign-in" style="font-size:22px;" aria-hidden="true"></i> 
+						</button>
+					</div>
+						<div class="text-center w-full p-t-25">
+						<span class="txt1">
+							Forgotten Password?
+						</span>
+						<a class="txt1 bo1 hov1" href="{% url 'password_reset' %}">
+							Reset Now						
+						</a>
+					</div>
+
+					<div class="text-center w-full p-t-10">
+						<span class="txt1">
+							Don't have an account?
+						</span>
+
+						<a class="txt1 bo1 hov1" href="{% url 'register' %}">
+							Sign up now							
+						</a>
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>	
+{% endblock  %}

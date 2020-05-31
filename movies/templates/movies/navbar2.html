@@ -1,0 +1,54 @@
+{% load static %}
+<nav class="navbar navbar-dark navbar-expand-lg bg-transparent">
+            <!-- Navbar brand --> 
+            <a class="navbar-brand" href="{% url 'home' %}">
+            <h4 class="mb-0" style="font-family: Grouser; font-size:30px;" data-aos="zoom-in" data-aos-duration="3000">WEBTRICKER</h4>
+            </a>
+
+
+            <button style="border: none;" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav" aria-controls="basicExampleNav"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            
+            <!-- Collapsible content -->
+            <div class="collapse navbar-collapse" id="basicExampleNav">
+                <!-- Links -->
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'home' %}"><i class="fa fa-home" aria-hidden="true"></i> HOME</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'allmovies' %}" class="nav-link" ><i class="fa fa-film" aria-hidden="true"></i> MOVIES</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/music.html" class="nav-link"><i class="fa fa-music" aria-hidden="true"></i> MUSIC</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" ><i class="fa fa-phone" aria-hidden="true"></i> CONTACT US</a>
+                    </li>
+                        {% if user.is_authenticated %}
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          {{ request.user.username }}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a href="{% url 'profile' %}" class="nav-link" style="color:black; font-weight: bold;"><i class="fa fa-user" aria-hidden="true"></i> Profile</a>
+                        <a href="{% url 'logout' %}" class="nav-link" style="color:black; font-weight: bold;"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+                          
+                        </div>
+                      </li>
+                      {% else %}
+
+                    <li class="nav-item active">
+                        <a href="{% url 'login' %}" class="nav-link" ><i class="fa fa-sign-in" aria-hidden="true"></i> LOGIN</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="{% url 'register' %}" class="nav-link" ><i class="fa fa-user-plus" aria-hidden="true"></i> REGISTER</a>
+                    </li>
+
+                    {% endif %}
+                </ul>            
+            </div>
+        </nav>

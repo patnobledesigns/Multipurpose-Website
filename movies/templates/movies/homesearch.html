@@ -1,0 +1,16 @@
+{% extends 'movies/base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<h3>This is the results of your search:<h3>
+{% if queryset %}
+{% for post in queryset %}
+        <a href="{{ post.get_absolute_url }}"><p>{{ post.name }}</p></a>
+{% endfor %}
+{% else %}
+        <h1 style="color:white;">Search not Found !!!</h1>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'movies/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %} 
+
+
+{% block content %}
+        <!-- Collapsible content End-->
+
+<div class="container mb-4 mt-4" style="color:white;">
+  
+      
+      
+<p class="mb-3">Are you want to delete "{{ movie }}" ?</p>
+            <form action="{{ movies.get_absolute_url }}" method="POST">
+                {% csrf_token %}
+                <a class="btn btn-warning btn-sm mr-2" href="{{ movie.get_absolute_url }}">Cancel</a>
+                <input class="btn btn-danger btn-sm" type="submit" name="Confirm">
+            </form>
+ 
+</div>
+
+{% endblock %}
+
+
+
+
+

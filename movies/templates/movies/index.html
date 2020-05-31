@@ -1,0 +1,238 @@
+{% extends 'movies/base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+            <hr>
+            <nav class="navbar navbar-dark navbar-expand-lg bg-transparent">
+              <ul class="navbar-nav mr-auto">
+                  <li class="nav-item" ><a class="nav-link" href="#movies">LATEST MOVIES</a></li>
+                  <li class="nav-item" ><a class="nav-link" href="#songs">LATEST SONGS</a></li>
+                  {% if request.user.is_superuser or request.user.is_staff %}
+                  <li class="nav-item"><a href="{% url 'news-create' %}" class="nav-link "><i class="fa fa-plus" aria-hidden="true"></i> Add New Post</a></li>
+                  {% endif %}
+                  </ul>
+              <form action="{% url 'searchresult' %}" class="search-form mt-2">
+                <div class="form-group mr-4 search">
+                    <input type="text" name="q" placeholder="Search">
+                    <button type="submit" class="submit"><i class="fa fa-search" style="font-size:17px;" aria-hidden="true"></i></button>
+                </div>
+              </form>
+            </nav>
+            <hr>
+            <!-- SECOND NAV END -->
+
+<div class="container">
+            <div class="mb-4 mt-4">
+                    <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carouselExampleFade" data-slide-to="0" class="active"></li>
+                            <li data-target="#carouselExampleFade" data-slide-to="1"></li>
+                            <li data-target="#carouselExampleFade" data-slide-to="2"></li>
+                        </ol>
+                        <div class="carousel-inner rounded">
+                        {% for img in image %}
+                        <div class="carousel-item{% if forloop.first %} active {% endif %}" data-interval="3000">
+                            <img src="{{ img.thumbnail.url }}" class="d-block w-100" alt="...">
+                        </div>
+                          {% endfor %}
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+            </div>
+
+        <hr>
+
+<!-- MOVIES -->
+        <h2 id="movies" class="text-left" data-aos="fade-down" data-aos-delay="100">MOVIES</h2>
+        <div class="row">
+        {% for movie in movie  %}
+            <div class="col-sm-4 col-md-4 col-lg" data-aos="fade-right" data-aos-delay="200">
+                <a href="{{ movie.get_absolute_url }}" class="album-poster mb-2"><img src="{{ movie.thumbnail.url }}" alt="..." class="img-fluid rounded"></a>
+                <a href="{{ movie.get_absolute_url }}"><p data-aos="fade-right" data-aos-delay="200">{{ movie.name }}</p></a>
+                        <p class="mb-2" data-aos="fade-right" data-aos-delay="200"><i class="fa fa-star" aria-hidden="true" style="color: yellow;"></i> {{movie.average_rating }}/<span class="text-secondary">10</span></p>
+            </div>
+        {% endfor %}
+        </div>
+        <br>
+        <p class="text-right">
+            <a href="{% url 'allmovies' %}">See all <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+        </p>
+        <hr>
+<!-- MOVIES END-->
+
+        
+
+        <!-- LASTEST SONGS -->
+        <h2 id="songs" class="text-left" data-aos="fade-down" data-aos-delay="100">LASTEST SONGS</h2>
+        <div class="row">
+            <div class="col-sm-4 col-md-4 col-lg" data-aos="fade-right" data-aos-delay="200">
+                <a href="#" class="album-poster mb-2"><img src="{% static './images/uploads/mv-it10.jpg' %}" alt="..." class="img-fluid w-100 rounded"></a>
+                <a href="#"><p data-aos="fade-right" data-aos-delay="200">Ant Man</p></a>
+                        <p class="mb-2" data-aos="fade-right" data-aos-delay="200"><i class="fa fa-star" aria-hidden="true" style="color: yellow;"></i> 7.3/<span class="text-secondary">10</span></p>
+                </div>
+            <div class="col-sm-4 col-md-4 col-lg" data-aos="fade-right" data-aos-delay="200">
+                <a href="#" class="album-poster mb-2"><img src="{% static './images/uploads/mv-it11.jpg' %} " alt="..." class="img-fluid w-100 rounded"></a>
+                <a href="#"><p data-aos="fade-right" data-aos-delay="200">Ant Man</p></a>
+                        <p class="mb-2" data-aos="fade-right" data-aos-delay="200"><i class="fa fa-star" aria-hidden="true" style="color: yellow;"></i> 7.3/<span class="text-secondary">10</span></p>
+                </div>
+            <div class="col-sm-4 col-md-4 col-lg" data-aos="fade-right" data-aos-delay="200">
+                <a href="#" class="album-poster mb-2"><img src="{% static './images/uploads/mv-item12.jpg' %}" alt="..." class="img-fluid w-100 rounded"></a>
+                <a href="#"><p data-aos="fade-right" data-aos-delay="200">Ant Man</p></a>
+                        <p class="mb-2" data-aos="fade-right" data-aos-delay="200"><i class="fa fa-star" aria-hidden="true" style="color: yellow;"></i> 7.3/<span class="text-secondary">10</span></p>
+                </div>
+            <div class="col-sm-4 col-md-4 col-lg" data-aos="fade-right" data-aos-delay="200">
+                <a href="#" class="album-poster mb-2"><img src="{% static './images/uploads/mv-item4.jpg' %}" alt="..." class="img-fluid w-100 rounded"></a>
+                <a href="#"><p data-aos="fade-right" data-aos-delay="200">Ant Man</p></a>
+                        <p class="mb-2" data-aos="fade-right" data-aos-delay="200"><i class="fa fa-star" aria-hidden="true" style="color: yellow;"></i> 7.3/<span class="text-secondary">10</span></p>
+                </div>
+            <div class="col-sm-4 col-md-4 col-lg" data-aos="fade-right" data-aos-delay="200">
+                <a href="#" class="album-poster mb-2"><img src="{% static './images/uploads/mv-item8.jpg' %}" alt="..." class="img-fluid w-100 rounded"></a>
+                <a href="#"><p data-aos="fade-right" data-aos-delay="200">Ant Man</p></a>
+                        <p class="mb-2" data-aos="fade-right" data-aos-delay="200"><i class="fa fa-star" aria-hidden="true" style="color: yellow;"></i> 7.3/<span class="text-secondary">10</span></p>
+                </div>
+            <div class="col-sm-4 col-md-4 col-lg" data-aos="fade-right" data-aos-delay="200">
+                <a href="#" class="album-poster mb-2"><img src="{% static './images/uploads/mv-it1.jpg' %} " alt="..." class="img-fluid w-100 rounded"></a>
+                <a href="#"><p data-aos="fade-right" data-aos-delay="200">Ant Man</p></a>
+                        <p class="mb-2" data-aos="fade-right" data-aos-delay="200"><i class="fa fa-star" aria-hidden="true" style="color: yellow;"></i> 7.3/<span class="text-secondary">10</span></p>
+                </div>
+        </div>
+        <br>
+        <p class="text-right">
+            <a href="#">See all <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+        </p>
+        <hr> 
+
+</div>
+    <!-- NEWS -->
+   <div class="container">
+      <div class="row">
+        <!-- Latest Posts -->
+        <main class="posts-listing col-lg-8"> 
+          <div class="container">
+            <div class="row">
+              <!-- post -->
+              {% for post in post_list %}
+              <div class="post col-xl-6">
+                <div class="post-thumbnail">
+                <a href="{{ post.get_absolute_url }}" class="post-thumb">
+                <img src="{{ post.thumbnail.url }}" alt="..." class="img-fluid rounded">
+                </a>
+                </div>
+                <div class="post-details">
+                  <div class="post-meta d-flex justify-content-between">
+                    <div class="date mr-3 meta-last">{{ post.timestamp|date:"d N | Y"}}</div>
+                  </div><a href="{{ post.get_absolute_url }}">
+                    <h3 >{{ post.title }}</h3></a>
+                  <p class="text-default">{{ post.snippet }}</p>
+                  <div class="post-footer d-flex align-items-center">
+                    <div class="date mr-3"><i class="fa fa-clock-o"></i> {{ post.timestamp|timesince }} ago</div>
+                    <div class="comments meta-last"><i class="fa fa-comments-o"></i> {{ post.comment_count }}</div>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+              <!-- End post-->
+            </div>
+            <!-- Pagination -->
+
+            <nav aria-label="Page navigation example">
+                <ul class="pagination pagination-template d-flex justify-content-center">
+                  {% if page_obj.has_previous %}
+                  <li class="page-item"><a href="?page=1" class="page-link"> <i class="fa fa-angle-left" aria-hidden="true"></i><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+                  <li class="page-item"><a href="?page={{ page_obj.previous_page_number }}" class="page-link"> <i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+                  {% endif %}
+
+                  {% for num in page_obj.paginator.page_range %}
+                  {% if page_obj.number == num %}
+                  <li class="page-item"><a href="?page={{ num }}" class="page-link active">{{ num }}</a></li>
+                  {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                  <li class="page-item"><a href="?page={{ num }}" class="page-link">{{ num }}</a></li>
+                  {% endif %}
+                 {% endfor %}
+  
+                 {% if page_obj.has_next %}
+                  <li class="page-item"><a href="?page={{ page_obj.next_page_number }}" class="page-link"> <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                  <li class="page-item"><a href="?page={{ page_obj.paginator.num_pages }}" class="page-link"><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                  {% endif %}
+                </ul>
+              </nav>
+          </div>
+        </main>
+
+        <aside class="col-lg-4">
+          {% include 'movies/aside.html'  with most_recent=most_recent language_count=language_count %}
+        </aside>
+
+       
+       
+       </div>
+       
+       
+       
+       
+       
+       
+       
+       
+
+        </div>
+                    
+            
+
+{% endblock %}
+
+
+<!-- <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
+    </div>
+
+  </footer> -->
+
+
+
+
+
+
+   <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
+</body>
+</html>
+
+
+
+
+
+              <!-- Pagination 
+  {% if is_paginated %}
+              <nav aria-label="Page navigation example">
+                <ul class="pagination pagination-template d-flex justify-content-center">
+                  {% if page_obj.has_previous %}
+                  <li class="page-item"><a href="?page=1" class="page-link"> <i class="fa fa-angle-left"></i></a></li>
+                  <li class="page-item"><a href="?page={{ page_obj.previous_page_number }}" class="page-link"> <i class="fa fa-angle-left"></i></a></li>
+                  {% endif %}
+                  {% for num in page_obj.paginator.page_range %}
+                  {% if page_obj.number == num %}
+                  <li class="page-item"><a href="?page={{ num }}" class="page-link active">{{ num }}</a></li>
+                  {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                  <li class="page-item"><a href="?page={{ num }}" class="page-link">{{ num }}</a></li>
+                  {% endif %}
+                 {% endfor %}
+  
+                 {% if page_obj.has_next %}
+                  <li class="page-item"><a href="?page={{ page_obj.next_page_number }}" class="page-link"> <i class="fa fa-angle-right"></i></a></li>
+                  <li class="page-item"><a href="?page={{ page_obj.paginator.num_pages }}" class="page-link"> <i class="fa fa-angle-right"></i></a></li>
+                  {% endif %}
+                </ul>
+              </nav>
+  {% endif %}-->

@@ -1,0 +1,22 @@
+{% extends "movies/base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+<br>
+<div class="container mb-4 mt-4" style="color:white;">
+  
+      
+      
+<p class="mb-3">Are you want to delete "{{ post }}" ?</p>
+            <form action="{{ post.get_delete_url }}" method="POST">
+                {% csrf_token %}
+                <a class="btn btn-warning btn-sm mr-2" href="{{ post.get_absolute_url }}">Cancel</a>
+                <input class="btn btn-danger btn-sm" type="submit" name="Confirm">
+            </form>
+ 
+</div>
+    
+
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'movies/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %} 
+
+{% block content %}
+
+<div class="container" style="color:white;">
+            <form action="" method="POST">
+              {% csrf_token %}
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  {{ form.comment|as_crispy_field}}
+
+                  <input type="range" id="rangeInput" name="rating" min="0" max="10" value="0" step="0.5" oninput="amount.value=rangeInput.value">
+                                    <output name="amount" id="amount" for="rangeInput">0</output>
+                                
+                <button type="submit" class="btn btn-primary btn-md btn-block mt-2">Edit review</button>
+                 </div>
+                </div>
+            </form>
+</div>
+
+
+{% endblock %}

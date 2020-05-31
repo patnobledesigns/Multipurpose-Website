@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% if title %}
+<title>{{ title }}</title>
+{% endif %}
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+{% include 'account/style.html' %}
+
+</head>
+<body>
+
+
+{% block reg %}
+	
+{% endblock %}
+{% include 'account/script.html' %}
+</body>
+</html>

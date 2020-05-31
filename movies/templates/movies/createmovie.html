@@ -1,0 +1,90 @@
+{% extends 'movies/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %} 
+
+
+{% block content %}
+        <!-- Collapsible content End-->
+
+<div class="container mb-4 mt-4" style="color:white;">
+  
+      
+      
+      <form action="" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+
+              <legend class="border-bottom mb-4 text-center">{{ new }} MOVIE</legend>
+            {% if messages %}
+         			     {% for message in messages %}
+                  <div class="alert alert-success">
+                    {{ message }}
+                  </div>
+           		   {% endfor %}
+           	{% endif %}
+                    
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                  {{ form.name|as_crispy_field}}
+                </div>
+                <div class="form-group col-md-3">
+                  {{ form.slug|as_crispy_field}}
+                </div>
+                <div class="form-group col-md-2">
+                  {{ form.Tagname|as_crispy_field}}
+                </div>
+                <div class="form-group col-md-2">
+                  {{ form.genre|as_crispy_field}}
+                </div>
+                 <div class="form-group col-md-2">
+                  {{ form.Language|as_crispy_field}}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                  {{ form.cast|as_crispy_field}}
+                </div>
+                 <div class="form-group col-md-4">
+                  {{ form.runtime|as_crispy_field}}
+                </div>
+                <div class="form-group col-md-2">
+                  {{ form.release_date|as_crispy_field}}
+                </div>
+                <div class="form-group col-md-2">
+                  <input type="range" id="rangeInput" name="average_rating" min="0" max="10" value="0" step="0.5" oninput="amount.value=rangeInput.value">
+                                    <output name="amount" id="amount" for="rangeInput">0</output>
+                </div>
+               </div>
+               <div class="form-row">
+                <div class="form-group col-md-6">
+                  {{ form.overview|as_crispy_field}}
+                </div>
+                <div class="form-group col-md-6">
+                  {{ form.imdb|as_crispy_field}}
+                </div>
+                <div class="form-group col-md-6">
+                  {{ form.downloadlink|as_crispy_field}}
+                </div>
+                <div class="form-group col-md-6">
+                  {{ form.iframe|as_crispy_field}}
+                </div>
+                <div class="form-group col-md-6">
+                  {{ form.thumbnail|as_crispy_field}}
+                </div
+                <br>
+              <div class="col-md-12">
+                  <button type="submit" class="btn btn-success btn-block btn-md"><i class="fa fa-database"></i> Submit</button>
+              </div>
+            </div>
+
+
+                
+      </form>
+ 
+</div>
+
+{% endblock %}
+
+
+
+
+
