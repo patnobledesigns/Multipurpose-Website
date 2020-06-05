@@ -349,6 +349,16 @@ iframe {
   padding-left: 26px;
   cursor: pointer;
 }
+.errorlist {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  padding: 5px 1.20rem;
+  margin-bottom: 8px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  font-size: 13px;
+}
 
 .label-checkbox100::before {
   content: "\f00c";

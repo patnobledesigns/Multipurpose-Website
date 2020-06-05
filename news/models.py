@@ -24,14 +24,13 @@ class Comment(models.Model):
 
    
 class Post(models.Model):
-    title = models.CharField(max_length=100)
-    overview = models.TextField()
-    timestamp = models.DateTimeField(auto_now_add=True)
-    content = HTMLField()
+    title = models.CharField(max_length=500, null=True, blank=True)
+    timestamp = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    content = HTMLField(null=True, blank=True)
     # comment_count = models.IntegerField(default = 0)
     # view_count = models.IntegerField(default = 0)
-    author = models.ForeignKey(Author, on_delete=models.CASCADE)
-    thumbnail = models.ImageField()
+    author = models.ForeignKey(Author, on_delete=models.CASCADE, null=True, blank=True)
+    thumbnail = models.URLField(max_length=1000, null=True, blank=True)
     previous_post = models.ForeignKey('self', related_name='previous', on_delete=models.SET_NULL, blank =True, null=True)
     next_post = models.ForeignKey('self', related_name='next', on_delete=models.SET_NULL, blank =True, null=True)
 

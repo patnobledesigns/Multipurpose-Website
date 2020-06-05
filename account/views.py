@@ -44,11 +44,14 @@ def loginpage(request):
             
             user = authenticate(request, username=username, password=password)
             if user is not None:
-                login(request, user)
-                if 'next' in request.POST:
-                    return redirect(request.POST.get('next'))
+                if user.is_active:  
+                    login(request, user)
+                    if 'next' in request.POST:
+                        return redirect(request.POST.get('next'))
+                    else:
+                        return redirect('home')
                 else:
-                    return redirect('home')
+                    messages.info(request, 'Your account has been disabled.')
             else:
                 messages.info(request, 'Username Or Password is Incorrect')              
     context = {

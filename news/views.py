@@ -43,6 +43,19 @@ def news_detail(request, pk):
     }
     return render(request, 'news/NewsFeed.html', context)
 
+def comment_delete(request, pk, comment_id):
+    if request.user.is_authenticated:
+        post = get_object_or_404(Post, pk=pk)
+        comment = Comment.objects.get(post=post, pk=comment_id)
+
+    if request.user == (comment.user or comment.user.is_staff()):
+        comment.delete() 
+        return redirect(reverse('newsInfo', kwargs={
+                'pk': post.pk
+            }))
+    else:
+        return redirect('login')
+
 
 def search(request):
     queryset = Post.objects.all()
@@ -78,6 +91,7 @@ def news_create(request):
                 }))
         context = {
             'title': title,
+            'post': 'Post',
             'form': form
         }
         return render(request, 'news/news_create.html', context)
@@ -102,6 +116,7 @@ def news_update(request, pk):
                 }))
         context = {
             'title': title,
+            'post': 'Update',
             'form': form,
         }
         return render(request, 'news/news_create.html', context)

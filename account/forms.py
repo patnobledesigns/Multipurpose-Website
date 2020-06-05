@@ -25,6 +25,14 @@ class CreateUserForm(UserCreationForm):
                 'class': "input100"
             })
             
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        email_qs = User.objects.filter(email=email)
+        if email_qs.exists():
+            raise forms.ValidationError("This email has already been registered")
+        return email
+
+
 class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField()
     

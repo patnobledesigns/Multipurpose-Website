@@ -83,6 +83,7 @@ p, h5{
   color:white;
   margin-bottom: 20px;
 }
+
 .errorlist {
   color: #721c24;
   background-color: #f8d7da;
@@ -92,6 +93,7 @@ p, h5{
   border: 1px solid transparent;
   border-radius: 10px;
 }
+
 .account-img{
   height: 125px;
   width: 125px;
