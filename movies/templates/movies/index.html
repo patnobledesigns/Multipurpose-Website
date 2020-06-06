@@ -34,10 +34,9 @@
                     <div class="carousel-inner rounded">
                       {% for img in image %}
                       <div class="carousel-item{% if forloop.first %} active {% endif %}" data-interval="3000">
-                          <img src="{{ img.thumbnail.url }}" class="d-block w-100" alt="...">
+                          <img src="{{ img.thumbnail }}" class="d-block w-100" alt="...">
                         <div class="carousel-caption d-none d-md-block">
-                          <h5>Second slide label</h5>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                          <h5>{{ img.title }}</h5>
                         </div>
                       </div>
                       {% endfor %}

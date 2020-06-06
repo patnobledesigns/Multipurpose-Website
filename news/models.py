@@ -24,11 +24,10 @@ class Comment(models.Model):
 
    
 class Post(models.Model):
-    title = models.CharField(max_length=500, null=True, blank=True)
+    title = models.CharField(max_length=1000, null=True, blank=True)
+    slug = models.SlugField(max_length=1000, null=True, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     content = HTMLField(null=True, blank=True)
-    # comment_count = models.IntegerField(default = 0)
-    # view_count = models.IntegerField(default = 0)
     author = models.ForeignKey(Author, on_delete=models.CASCADE, null=True, blank=True)
     thumbnail = models.URLField(max_length=1000, null=True, blank=True)
     previous_post = models.ForeignKey('self', related_name='previous', on_delete=models.SET_NULL, blank =True, null=True)
@@ -38,17 +37,14 @@ class Post(models.Model):
     def __str__(self):
         return self.title
     
-    def snippet(self):
-        return f'{self.overview[:70]} ...'
-    
     def get_absolute_url(self):
-        return reverse("newsInfo", kwargs={"pk": self.pk})
+        return reverse("newsInfo", kwargs={"slug": self.slug})
     
     def get_update_url(self):
-        return reverse("news-update", kwargs={"pk": self.pk})
+        return reverse("news-update", kwargs={"slug": self.slug})
     
     def get_delete_url(self):
-        return reverse("news-delete", kwargs={"pk": self.pk})
+        return reverse("news-delete", kwargs={"slug": self.slug})
     
     @property
     def get_comments(self):

@@ -16,10 +16,10 @@ def get_author(user):
 
 
 @login_required(login_url='login')
-def news_detail(request, pk):
+def news_detail(request, slug):
     language_count =  get_language_count()
     most_recent = Post.objects.order_by('-timestamp')[:3]
-    post = get_object_or_404(Post, pk=pk)
+    post = get_object_or_404(Post, slug=slug)
     
     if request.user.is_authenticated:
         PostView.objects.get_or_create(user=request.user, post=post)
@@ -31,7 +31,7 @@ def news_detail(request, pk):
             form.instance.post = post
             form.save()
             return redirect(reverse('newsInfo', kwargs={
-                'pk': post.pk
+                'slug': post.slug
             }))
             
     context={
@@ -43,15 +43,15 @@ def news_detail(request, pk):
     }
     return render(request, 'news/NewsFeed.html', context)
 
-def comment_delete(request, pk, comment_id):
+def comment_delete(request, slug, comment_id):
     if request.user.is_authenticated:
-        post = get_object_or_404(Post, pk=pk)
+        post = get_object_or_404(Post, slug=slug)
         comment = Comment.objects.get(post=post, pk=comment_id)
 
     if request.user == (comment.user or comment.user.is_staff()):
         comment.delete() 
         return redirect(reverse('newsInfo', kwargs={
-                'pk': post.pk
+                'slug': post.slug
             }))
     else:
         return redirect('login')
@@ -65,7 +65,7 @@ def search(request):
     if query:
         queryset = queryset.filter(
             Q(title__icontains=query) |
-            Q(overview__icontains=query)
+            Q(content__icontains=query)
         ).distinct()
         
         
@@ -87,7 +87,7 @@ def news_create(request):
                 form.save()
                 messages.success(request, f'Post Has been Created')
                 return redirect(reverse("newsInfo", kwargs={
-                    'pk': form.instance.pk
+                    'slug': form.instance.slug
                 }))
         context = {
             'title': title,
@@ -96,14 +96,14 @@ def news_create(request):
         }
         return render(request, 'news/news_create.html', context)
 
-def news_update(request, pk):
+def news_update(request, slug):
     if not request.user.is_staff or not request.user.is_superuser:
         return redirect(reverse("newsInfo", kwargs={
-                    'pk': pk
+                    'slug': slug
                 }))
     else:    
         title = 'Update'
-        post = get_object_or_404(Post, pk=pk)
+        post = get_object_or_404(Post, slug=slug)
         form = PostForm(request.POST or None, request.FILES or None, instance=post)
         author = get_author(request.user)
         if request.method == "POST":
@@ -112,7 +112,7 @@ def news_update(request, pk):
                 form.save()
                 messages.success(request, f'Post Has been updated')
                 return redirect(reverse("newsInfo", kwargs={
-                    'pk': form.instance.pk
+                    'slug': form.instance.slug
                 }))
         context = {
             'title': title,
@@ -121,13 +121,13 @@ def news_update(request, pk):
         }
         return render(request, 'news/news_create.html', context)
 
-def news_delete(request, pk):
+def news_delete(request, slug):
     if not request.user.is_staff or not request.user.is_superuser:
         return redirect(reverse("newsInfo", kwargs={
-                    'pk': pk
+                    'slug': slug
                 }))
     else:
-        post = get_object_or_404(Post, pk=pk)
+        post = get_object_or_404(Post, slug=slug)
         
         if request.method == 'POST':
             post.delete()

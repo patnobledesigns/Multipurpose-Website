@@ -60,5 +60,8 @@ class Movie(models.Model):
 
    
 class ImageSlide(models.Model):
-    thumbnail = models.ImageField()
+    thumbnail = models.URLField(max_length=1000, null=True, blank=True)
+    title = models.CharField(max_length=500, null=True, blank=True)
     
+    def __str__(self):
+        return self.title

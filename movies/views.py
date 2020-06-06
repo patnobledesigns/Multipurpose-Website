@@ -110,7 +110,9 @@ def movies_detail(request, slug):
         'movies': movies,
         'form': form, 
         'reviews': reviews, 
-        'average': average
+        'average': average, 
+        'title': 'Movie Information'
+            
     }
     return render(request, 'movies/details.html', context)
 
@@ -184,7 +186,7 @@ def update_movie(request, slug):
                 moviename = form.cleaned_data.get('name')
                 
                 messages.success(request, f'{moviename} has been updated!')
-                return redirect("allmovies")
+                return redirect('allmoviesInfo', slug)
         else:
             form = CreateMovieForm(instance=movies)
             
