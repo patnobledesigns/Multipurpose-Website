@@ -2,10 +2,10 @@ from django.shortcuts import render, get_object_or_404, redirect, reverse
 from .models import *
 from django.db.models import Count, Q
 from .forms import CommentForm, PostForm
-from movies.views import get_language_count
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
+from taggit.models import Tag
+from urllib.parse import quote_plus
 
 # Create your views here.
 def get_author(user):
@@ -14,12 +14,17 @@ def get_author(user):
         return qs[0]
     return None
 
+def get_category_count():
+    queryset = Post.objects.values('category__name').annotate(Count('category__name'))
+    return queryset
 
 @login_required(login_url='login')
 def news_detail(request, slug):
-    language_count =  get_language_count()
+    category_count =  get_category_count()
     most_recent = Post.objects.order_by('-timestamp')[:3]
     post = get_object_or_404(Post, slug=slug)
+    tags = Tag.objects.all()
+    share_string = quote_plus(post.content)
     
     if request.user.is_authenticated:
         PostView.objects.get_or_create(user=request.user, post=post)
@@ -35,13 +40,55 @@ def news_detail(request, slug):
             }))
             
     context={
-        'title': 'News',
+        'title': post,
         'post': post,
-        'language_count': language_count,
+        'category_count': category_count,
         'most_recent': most_recent,
         'form': form,
+        'tags': tags,
+        'share_string': share_string,
     }
     return render(request, 'news/NewsFeed.html', context)
+
+def postCategory(request, category_slug):
+    category_count =  get_category_count()
+    most_recent = Post.objects.order_by('-timestamp')[:3]
+    categories = Category.objects.all()
+    post  = Post.objects.all()
+    tags = Tag.objects.all()
+    
+    if category_slug:
+        category = get_object_or_404(Category, slug=category_slug)
+        posts = post.filter(category=category)
+    context = {
+        'categories': categories,
+        'post': posts,
+        'category': category,
+        'category_count': category_count,
+        'most_recent': most_recent,
+        'tags': tags,
+        'title': category,
+    }
+    return render(request, 'news/postCategory.html', context)
+    
+
+def postTag(request, slug):
+    category_count =  get_category_count()
+    most_recent = Post.objects.order_by('-timestamp')[:3]
+    tags = Tag.objects.all()
+    post  = Post.objects.all()
+    posttags = Post.objects.filter(tags__slug=slug)
+    
+    context = {
+        'tags': tags,
+        'posttags': posttags,
+        'category_count': category_count,
+        'post': post,
+        'most_recent': most_recent,
+        'title': 'Tags',
+    }
+    return render(request, 'news/tags.html', context)
+
 
 def comment_delete(request, slug, comment_id):
     if request.user.is_authenticated:

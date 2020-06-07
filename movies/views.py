@@ -4,18 +4,16 @@ from .models import *
 from .forms import *
 from news.models import *
 from news.forms import *
+from news.views import get_category_count
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.views.generic import ListView
 from django.db.models import Count, Q
 from django.db.models.aggregates import Avg
+from taggit.models import Tag
 
 # Create your views here.
-
-def get_language_count():
-    queryset = Movie.objects.values('Language__language').annotate(Count('Language__language'))
-    return queryset
 
 def search_home(request):
     queryset = Movie.objects.all()
@@ -43,7 +41,7 @@ class Home(ListView):
     model = Movie
     template_name = 'movies/index.html'
     context_object_name = 'post_list'
-    paginate_by = 4
+    paginate_by = 6
     
     def get_queryset(self):
         return Post.objects.all()
@@ -51,15 +49,17 @@ class Home(ListView):
     def get_context_data(self, **kwargs):
         most_recent = Post.objects.order_by('-timestamp')[:3]
         image = ImageSlide.objects.all()
-        language_count = get_language_count()
+        category_count = get_category_count()
         movies = Movie.objects.all().order_by('-date_posted')[0:6]
         context = super().get_context_data(**kwargs)
         context["movie"] = movies
-        context["language_count"] = language_count
+        context["category_count"] = category_count
         context["most_recent"] = most_recent
         context["image"] = image
+        context["tags"] = Tag.objects.all()
         return context
-
+    
+    
 
 class Movies(ListView):
     model = Movie
@@ -85,7 +85,6 @@ class Movies(ListView):
 def movies_detail(request, slug):
     movies = get_object_or_404(Movie, slug=slug)
     reviews = Review.objects.filter(movie__slug=slug).order_by('-date_posted')
-    
     average = reviews.aggregate(Avg("rating"))["rating__avg"]
     if average == None:
         average = 0
@@ -111,7 +110,7 @@ def movies_detail(request, slug):
         'form': form, 
         'reviews': reviews, 
         'average': average, 
-        'title': 'Movie Information'
+        'title': movies
             
     }
     return render(request, 'movies/details.html', context)

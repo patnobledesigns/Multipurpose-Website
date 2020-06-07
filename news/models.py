@@ -4,6 +4,8 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from account.models import *
 
+from taggit.managers import TaggableManager
+
 # Create your models here.
     
 class PostView(models.Model):
@@ -22,6 +24,20 @@ class Comment(models.Model):
     def __str__(self):
         return self.user.username  
 
+class Category(models.Model):
+    name = models.CharField(max_length=200, null=True, blank=True)
+    slug = models.SlugField(max_length = 100, null=True, blank=True)
+    
+    class Meta:
+        ordering = ('name',)
+        verbose_name = 'category'
+        verbose_name_plural = 'categories'
+        
+    def get_category_url(self):
+        return reverse("postCategory", kwargs={"slug": self.slug})
+    
+    def __str__(self):
+        return self.name
    
 class Post(models.Model):
     title = models.CharField(max_length=1000, null=True, blank=True)
@@ -29,10 +45,11 @@ class Post(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     content = HTMLField(null=True, blank=True)
     author = models.ForeignKey(Author, on_delete=models.CASCADE, null=True, blank=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
     thumbnail = models.URLField(max_length=1000, null=True, blank=True)
     previous_post = models.ForeignKey('self', related_name='previous', on_delete=models.SET_NULL, blank =True, null=True)
     next_post = models.ForeignKey('self', related_name='next', on_delete=models.SET_NULL, blank =True, null=True)
-
+    tags = TaggableManager()
 
     def __str__(self):
         return self.title

@@ -30,18 +30,20 @@
                     <div class="aside">
                         <h3 class="mb-3" style="display: block;">{{ movies.name }}</h3>
                         
-                        <a href="#">
-                        <button class="btn btn-outline-info my-2 my-sm-0 mt-5 ml-3" style="border-radius: 50%;"><i class="fa fa-share-alt" aria-hidden="true"></i></button>
-                        </a>
-                    
-                        <a href="{% url 'allmovies' %}">
-                        <button class="btn btn-outline-info my-2 my-sm-0 mt-5">{{ movies.Tagname }}</button>
-                        </a>
-                        
+                        <div class="text-right">
+                                <a href="#">
+                                <button class="btn btn-outline-info my-2 my-sm-0 mr-2" style="border-radius: 50%;"><i class="fa fa-share-alt" aria-hidden="true"></i></button>
+                                </a>
+
+                                <a href="{% url 'allmovies' %}">
+                                <button class="btn btn-outline-info my-2 my-sm-0" >{{ movies.Tagname }}</button>
+                                </a>
+                        </div>
                         <div class="favourite mt-4">
                             <p class="date" data-aos="fade-right" data-aos-delay="200" ><i class="fa fa-star" aria-hidden="true" style="color: yellow;"></i> {{ average }}/<span class="text-secondary">10</span></p>
                             <h6 class="date" data-aos="fade-left" data-aos-delay="200" >{{ movies.comment_count }} reviews</h6>
                            
+
                             <div class="associate mt-3">
                             <p data-aos="fade-down" data-aos-delay="200" >Cast & Crew: {{ movies.cast }}</p>
                             

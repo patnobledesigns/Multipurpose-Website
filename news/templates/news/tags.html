@@ -1,0 +1,161 @@
+{% extends 'movies/base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+            <hr>
+            <nav class="navbar navbar-dark navbar-expand-lg bg-transparent">
+              <ul class="navbar-nav mr-auto">
+            
+                  <h4 class="mr-4">{{tags.name}}</h4>
+
+                  {% if request.user.is_superuser or request.user.is_staff %}
+                  <li class="nav-item"><a href="{% url 'news-create' %}" class="nav-link "><i class="fa fa-plus" aria-hidden="true"></i> Add New Post</a></li>
+                  {% endif %}
+                  </ul>
+              <form action="{% url 'searchresult' %}" class="search-form mt-2">
+                <div class="form-group mr-4 search">
+                    <input type="text" name="q" placeholder="Search">
+                    <button type="submit" class="submit"><i class="fa fa-search" style="font-size:17px;" aria-hidden="true"></i></button>
+                </div>
+              </form>
+            </nav>
+            <hr>
+          
+            <!-- SECOND NAV END -->
+
+
+    <!-- NEWS -->
+   <div class="container">
+      <div class="row">
+        <!-- Latest Posts -->
+        <main class="posts-listing col-lg-8"> 
+          <div class="container">
+            <div class="row">
+              <!-- post -->
+              {% for posts in posttags %}
+              <div class="post col-xl-6">
+                <div class="post-thumbnail">
+                <a href="{{ posts.get_absolute_url }}" class="post-thumb">
+                <img src="{{ posts.thumbnail }}" alt="..." class="img-fluid rounded">
+                </a>
+                </div>
+                <div class="post-details">
+                  <div class="post-meta d-flex justify-content-between">
+                    <div class="date mr-3 meta-last">{{ posts.timestamp|date:"d N | Y"}}</div>
+                    <div class="category"><a style="color: white; href="{% url 'postCategory' posts.category.slug%}"><i class="fa fa-tags" aria-hidden="true" style="font-size: 15px"></i> {{ posts.category.name }}</a></div>
+                  </div><a href="{{ posts.get_absolute_url }}">
+                    <h3 >{{ posts.title }}</h3></a>
+                  <div class="post-footer d-flex align-items-center">
+                    <div class="date mr-3"><i class="fa fa-clock-o"></i> {{ posts.timestamp|timesince }} ago</div>
+                    <div class="comments meta-last"><i class="fa fa-comments-o"></i> {{ posts.comment_count }}</div>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+              <!-- End post-->
+            </div>
+            <!-- Pagination -->
+
+            <nav aria-label="Page navigation example">
+                <ul class="pagination pagination-template d-flex justify-content-center">
+                  {% if page_obj.has_previous %}
+                  <li class="page-item"><a href="?page=1" class="page-link"> <i class="fa fa-angle-left" aria-hidden="true"></i><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+                  <li class="page-item"><a href="?page={{ page_obj.previous_page_number }}" class="page-link"> <i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+                  {% endif %}
+
+                  {% for num in page_obj.paginator.page_range %}
+                  {% if page_obj.number == num %}
+                  <li class="page-item"><a href="?page={{ num }}" class="page-link active">{{ num }}</a></li>
+                  {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                  <li class="page-item"><a href="?page={{ num }}" class="page-link">{{ num }}</a></li>
+                  {% endif %}
+                 {% endfor %}
+  
+                 {% if page_obj.has_next %}
+                  <li class="page-item"><a href="?page={{ page_obj.next_page_number }}" class="page-link"> <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                  <li class="page-item"><a href="?page={{ page_obj.paginator.num_pages }}" class="page-link"><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                  {% endif %}
+                </ul>
+              </nav>
+          </div>
+        </main>
+
+        <aside class="col-lg-4">
+        {% include 'movies/mostrecent.html' %}
+         <div class="widget categories">
+            <header>
+              <h3 class="h6">Categories</h3>
+            </header>
+            {% for cat in category_count %}
+            <div class="item d-flex justify-content-between"><h6>{{ cat.category__name }}</h6><span>{{ cat.category__name__count }}</span></div>
+            {% endfor %}
+          </div>
+          {% include 'movies/newsletter.html' %}
+        </aside>
+
+       
+       
+       </div>
+       
+       
+       
+       
+       
+       
+       
+       
+
+        </div>
+                    
+            
+
+{% endblock %}
+
+
+<!-- <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
+    </div>
+
+  </footer> -->
+
+
+
+
+
+
+   <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
+</body>
+</html>
+
+
+
+
+
+              <!-- Pagination 
+  {% if is_paginated %}
+              <nav aria-label="Page navigation example">
+                <ul class="pagination pagination-template d-flex justify-content-center">
+                  {% if page_obj.has_previous %}
+                  <li class="page-item"><a href="?page=1" class="page-link"> <i class="fa fa-angle-left"></i></a></li>
+                  <li class="page-item"><a href="?page={{ page_obj.previous_page_number }}" class="page-link"> <i class="fa fa-angle-left"></i></a></li>
+                  {% endif %}
+                  {% for num in page_obj.paginator.page_range %}
+                  {% if page_obj.number == num %}
+                  <li class="page-item"><a href="?page={{ num }}" class="page-link active">{{ num }}</a></li>
+                  {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                  <li class="page-item"><a href="?page={{ num }}" class="page-link">{{ num }}</a></li>
+                  {% endif %}
+                 {% endfor %}
+  
+                 {% if page_obj.has_next %}
+                  <li class="page-item"><a href="?page={{ page_obj.next_page_number }}" class="page-link"> <i class="fa fa-angle-right"></i></a></li>
+                  <li class="page-item"><a href="?page={{ page_obj.paginator.num_pages }}" class="page-link"> <i class="fa fa-angle-right"></i></a></li>
+                  {% endif %}
+                </ul>
+              </nav>
+  {% endif %}-->

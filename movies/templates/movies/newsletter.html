@@ -1,0 +1,42 @@
+{% load static %}
+          <div class="widget tags" style="border:none;"> 
+          <div class="form-element">       
+            <header>
+              <h2 class="text-center">NEWSLETTER</h2>
+            </header>
+            <input type="text" class="input-element newsletter" placeholder="email">
+            <button class="btn form-btn">Subscribe</button>
+          </div >
+          </div >
+
+           <!-- Widget [Tags Cloud Widget]-->
+          <div class="widget tags">       
+            <header>
+              <h3 class="h6">Tags</h3>
+            </header>
+            <ul class="list-inline">
+            {% for tag in tags %}
+              <li class="list-inline-item"><a href="{% url 'tagged' tag.slug %}" class="tag">#{{ tag.name }}</a></li>
+            {% empty %}
+              <li class="list-inline-item"><p class="tag">No Tags</p></li>
+            {% endfor %}
+            </ul>
+          </div >
+      
+        
+    
+        
+
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+
+     

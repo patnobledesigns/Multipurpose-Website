@@ -1,6 +1,6 @@
 {% load static %}
 <!-- Widget [Search Bar Widget]-->
-          <div class="widget search">
+         <div class="widget search">
             <header>
               <h3 class="h6">Search the blog</h3>
             </header>
@@ -32,26 +32,3 @@
                 {% endfor %}
           </div>
           </div>
-          <!-- Widget [Categories Widget]-->
-          <div class="widget categories">
-            <header>
-              <h3 class="h6">Movie Categories</h3>
-            </header>
-            {% for cat in language_count %}
-            <div class="item d-flex justify-content-between"><a href="#">{{ cat.Language__language }}</a><span>{{ cat.Language__language__count }}</span></div>
-            {% endfor %} 
-          </div>
-
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-
-     

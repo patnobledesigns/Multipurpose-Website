@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'news.apps.NewsConfig',
     'crispy_forms',
     'tinymce',
+    'taggit'
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

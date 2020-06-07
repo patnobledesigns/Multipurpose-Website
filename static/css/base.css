@@ -3,8 +3,8 @@
 * {
 	margin:0;
 	padding:0;
-    outline:0;
-    font-family:var(--Abel);
+  outline:0;
+  font-family:var(--Abel);
 }
 body {
 	line-height:1.3;
@@ -55,6 +55,12 @@ a {
 
 span {
     font-family: var(--Abel);
+}
+a, i, span {
+  display: inline-block;
+  text-decoration: none;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
 }
 
 h2 {
@@ -249,9 +255,7 @@ p.author{
     margin-left: 20px;
   }
 /* Nav End */
-ul{
-    display: flex;
-}
+
 ul, li a{
     color: white;
     list-style: none;
@@ -569,6 +573,9 @@ div.images .img-fluid{
   font-weight: 700;
   border-bottom: 1px solid rgb(189, 186, 186);
 }
+.widget.categories .item:hover {
+  color: #ddd;
+}
 
 
 .widget.categories .item a {
@@ -576,10 +583,47 @@ div.images .img-fluid{
   font-size: 0.95em;
 }
 
+.form-element .form-btn {
+  border-radius: 0;
+  padding: .8rem 32%;
+  margin: 1rem 0;
+  background: var(--sky);
+  width: 100%;
+  color:black;
+}
+
+.input-element.newsletter{
+  display: block;
+  width: 100%;
+  line-height: 2.3rem;
+  padding: .3rem .5rem;
+  font-family: var(--Lexend);
+  font-size: 1rem;
+  border:1px solid white;
+  background: transparent;
+  color:whitesmoke;
+}
 
 .widget.categories .item span {
   font-size: 0.9em;
   color: white!important;
+}
+
+.widget.tags .tag {
+  padding: 5px 25px;
+  border: 1px solid #ddd;
+  margin: 5px 0;
+  color:white;
+  font-size: 0.75em;
+  text-transform: uppercase;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 50px;
+}
+
+.widget.tags .tag:hover {
+  color: #fff;
+  border-color: rgb(43, 241, 241);
 }
 
 /* End News */
@@ -870,10 +914,22 @@ footer.footer .instagram div > img{
 .social.text-grey .whatsapp i:hover {
     color: greenyellow;
 }
+.social.text-grey .google i:hover {
+    color: red;
+}
+.social.text-grey .linkedin i:hover {
+    color: rgb(72, 153, 185);
+}
+.social.text-grey.share i{
+  font-size: 20px!important;
+  margin-right: 5px;
+  color: black;
+}
 footer.footer .follow div i{
     color:var(--white);
     padding: 0 .4rem;
 }
+
 footer.footer .rights{
     justify-content: center;
     font-family: var(--Livvic);
@@ -930,6 +986,7 @@ footer.footer .container{
   margin-bottom: 10px;
 
 }
+
 }
 
 /*               Viewport less then or equal to 750px          */
@@ -957,5 +1014,16 @@ footer.footer .container{
       box-shadow: 0 10px 30px rgb(8, 150, 150);
       transition: all ease 0.4s;
       margin-bottom: 10px;
+    }
+    div.search input {
+      width: 100%!important;
+      height: 40px!important;
+      line-height: 40px;
+      border: none;
+      border-bottom: 1px solid white!important;
+      font-size: 0.95em;
+      font-weight: 400;
+      background: none;
+      color:white;
     }
 }
