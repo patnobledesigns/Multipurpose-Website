@@ -21,11 +21,10 @@ class Command(BaseCommand):
             page = requests.get(link)
             soup =  BeautifulSoup(page.content,'html.parser')
             page = soup.find('article', class_='video-file')
-            # run = page.select('.video-stats')
-            # for x in run:
-            #     runt = x.text.split('|')[1:2]  
-            #     print(runt)     
-                    
+            run = page.select('.video-stats')
+            for x in run:
+                runt = x.text.split('|')[-1] 
+                runtime = runt.replace(' Runtime:', '')
             imgsrc = page.select('.video-plain .video-image img')
             img = [x['src'] for x in imgsrc]
             content = page.select('.video-details .video-about > p')
@@ -52,10 +51,10 @@ class Command(BaseCommand):
                 search = BeautifulSoup(res.content, 'html.parser')
                 file = search.select('.file-share .form .row > input') 
                 loop = [x for x in file][3].get('value')
-                for d,e,f in zip(img,content,emb):
+                for d,e,f,g in zip(img,content,emb,runt):
                     image = d
                     cont = e.text
-                    embed = str(f)
+                    embed = str(f)                
                     try:
                         Movie.objects.create(
                             name=title,
@@ -64,6 +63,7 @@ class Command(BaseCommand):
                             overview=cont,
                             release_date=releasedate,
                             language=language,
+                            runtime=runtime,
                             thumbnail=image,
                             imdb=imdb,
                             iframe=embed,
