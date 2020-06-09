@@ -3,6 +3,10 @@ from .models import *
 
 
 class NewsletterUserSignUpForm(forms.ModelForm):
+    email = forms.EmailField(widget=forms.TextInput(attrs={
+        'class': 'input-element newsletter',
+        'placeholder': 'Email'
+    }))
     class Meta:
         model = NewsletterUser
         fields = ['email']

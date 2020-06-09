@@ -29,7 +29,12 @@ class Command(BaseCommand):
             img = [x['src'] for x in imgsrc]
             content = page.select('.video-details .video-about > p')
             titlep = page.select('.quote-content p')
-            title = [x for x in titlep][0].get_text()
+            titl = soup.select('h1#page-title')
+            for x in titl:
+                tit = x.text.replace('[DVDRip]', '')
+                t = tit.replace('Movie:', '')
+                u = t.replace('[Korean]', '')
+                title = u.replace('[Thai]', '')
             gen = [x for x in titlep][1].get_text()
             genre = gen.replace('Genre:', '')
             release = [x for x in titlep][2].get_text()
@@ -40,8 +45,11 @@ class Command(BaseCommand):
             source = sour.replace('Source:', '')
             lang = [x for x in titlep][5].get_text()
             language = lang.replace('Language:', '')
-            imd = [x for x in titlep][7].get_text()
-            imdb = imd.replace('IMDB:', '')
+            try:        
+                imd = [x for x in titlep][7].get_text()
+                imdb = imd.replace('IMDB:', '')
+            except:
+                pass
             emb = page.select('.embed-video iframe')
             downlinks = page.select('.video-download p a[href*="/download"]')
             download = [x['href'] for x in downlinks]
