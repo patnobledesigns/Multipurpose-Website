@@ -26,9 +26,8 @@
         <div class="row">
         {% for movie in movies  %}
             <div class="col-md-2 mb-4" data-aos="fade-right" data-aos-delay="200">
-                <a href="{{ movie.get_absolute_url }}" class="album-poster mb-2"><img src="{{ movie.thumbnail.url }}" alt="..." class="img-fluid rounded"></a>
+                <a href="{{ movie.get_absolute_url }}" class="album-poster"><img src="{{ movie.thumbnail }}" alt="..." class="img-fluid rounded"></a>
                 <a href="#"><p data-aos="fade-right" data-aos-delay="200">{{ movie.name }}</p></a>
-                        <p class="mb-2" data-aos="fade-right" data-aos-delay="200"><i class="fa fa-star" aria-hidden="true" style="color: yellow;"></i> {{ movie.average_rating }}/<span class="text-secondary">10</span></p>
             </div>
           {% endfor %}
         </div>

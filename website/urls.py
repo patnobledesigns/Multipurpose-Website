@@ -25,6 +25,7 @@ urlpatterns = [
     path('', include('movies.urls')),
     path('', include('account.urls')),
     path('', include('news.urls')),
+    path('newsletter/', include('newsletters.urls')),
 ]
 
 if settings.DEBUG:

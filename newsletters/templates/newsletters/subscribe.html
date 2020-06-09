@@ -1,0 +1,20 @@
+{% extends "movies/base.html" %} 
+{% load crispy_forms_tags %}
+ {% block content %} 
+ <div class="container w-75">
+ <div class="widget tags" style="border:none;"> 
+          <div class="form-element">       
+            <header>
+              <h2 class="text-center">NEWSLETTER</h2>
+              <p class="text-center">Stay updated with our latest</p>
+            </header>
+            <form method="POST" action="/">
+            {% csrf_token %}
+            <input type="text" class="input-element newsletter" placeholder="email">
+            {{ forminfo }}
+            <a style="display:block;" href="{% url 'subscribe' %}"><button type="button" class=" form-btn btn btn-md btn-block">Subscribe</button></a>
+            </form>
+          </div>
+</div>
+</div>
+ {% endblock %} 

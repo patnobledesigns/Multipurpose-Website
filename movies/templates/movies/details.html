@@ -3,7 +3,12 @@
 {% load crispy_forms_tags %} 
 
 {% block content %}
-
+<style>
+.page-single .container.player iframe{
+    width:100%!important;
+    height:400px!important;
+}
+</style>
         <!-- Collapsible content End-->
         <br><br>
         <div class="container w-75">
@@ -17,7 +22,7 @@
             <div class="row mb-4">
                 <div class="col-md-6 col-lg-6 h-50">
                 <div class="thumb">
-                    <img src="{{ movies.thumbnail.url }}" alt="..." class="img-fluid rounded" >
+                    <img src="{{ movies.thumbnail }}" alt="..." class="img-fluid rounded" >
                         </div>
                         {% if request.user.is_superuser or request.user.is_staff %}
                         <div class="mt-4">
@@ -26,44 +31,39 @@
                 </div>
                 {% endif %}
                 </div>
-                <div class="col-md-6 col-lg h-45">
+                <div class="col-md-6 h-45">
                     <div class="aside">
-                        <h3 class="mb-3" style="display: block;">{{ movies.name }}</h3>
+                        <h3 class="mb-3">{{ movies.name }}</h3>
                         
-                        <div class="text-right">
+                        <div style="float:right;">
                                 <a href="#">
-                                <button class="btn btn-outline-info my-2 my-sm-0 mr-2" style="border-radius: 50%;"><i class="fa fa-share-alt" aria-hidden="true"></i></button>
+                                <button class="btn btn-outline-info btn-sm mr-2" style="border-radius: 50%;color:white!important;"><i class="fa fa-share-alt" aria-hidden="true"></i></button>
                                 </a>
-
                                 <a href="{% url 'allmovies' %}">
-                                <button class="btn btn-outline-info my-2 my-sm-0" >{{ movies.Tagname }}</button>
+                                <button class="btn btn-outline-info btn-sm" style="color:white!important;">{{ movies.Tagname }}</button>
                                 </a>
                         </div>
                         <div class="favourite mt-4">
-                            <p class="date" data-aos="fade-right" data-aos-delay="200" ><i class="fa fa-star" aria-hidden="true" style="color: yellow;"></i> {{ average }}/<span class="text-secondary">10</span></p>
-                            <h6 class="date" data-aos="fade-left" data-aos-delay="200" >{{ movies.comment_count }} reviews</h6>
+                            <p class="date"><i class="fa fa-star" aria-hidden="true" style="color: yellow;"></i> {{ average }}/<span class="text-secondary">10</span></p>
+                            <h6 class="date">{{ movies.comment_count }} reviews</h6>
                            
 
                             <div class="associate mt-3">
-                            <p data-aos="fade-down" data-aos-delay="200" >Cast & Crew: {{ movies.cast }}</p>
                             
-                            <p data-aos="fade-up" data-aos-delay="200">Genre:
-                            {% for gen in movies.genre.all %}
-                            | <span style="color: orange; font-weight:bold;">{{ gen }}</span> | 
-                            {% endfor %}
-                            </p>
+                            <p>Genre: {{ movies.genre }}</p>
+                        
                             
-                            <p data-aos="fade-right" data-aos-delay="200" >Release Date: {{ movies.release_date }}</p>
-                            <p data-aos="fade-right" data-aos-delay="200" >Run Time: {{ movies.runtime}}</p>
-                            <p data-aos="zoom-in" data-aos-delay="200" >Language: {{ movies.Language }}</p>
-                            <p data-aos="fade-left" data-aos-delay="200" >IMDB: <a href="{{ movies.imdb }}" target="blank"> {{ movies.imdb }} </a></p>
+                            <p>Release Date: {{ movies.release_date }}</p>
+                            <p>Runtime: {{ movies.runtime}}</p>
+                            <p>Language: {{ movies.language }}</p>
+                            <p>IMDB Link:  <a class="text-primary" href="{{ movies.imdb }}" target="blank"> {{ movies.imdb }} </a></p>
+                            <p>Source: {{ movies.source }}</p>
                             </div>
                         <br>
-                        </div>
                         <div class="downloadlink">
-                        
-                           <a href="{{ movies.downloadlink }}"><button type="button" class="btn btn-primary btn-md btn-block"><i class="fa fa-download" aria-hidden="true"></i>&nbsp;&nbsp; Download</button></a>
+                           <a style="display:block;" href="{{ movies.download_link }}"><button type="button" class="btn btn-primary btn-md btn-block"><i class="fa fa-download" aria-hidden="true"></i>&nbsp;&nbsp; Download</button></a>
           
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -153,7 +153,7 @@
     </div>
     <div class="tab-pane fade" id="pills-trailer" role="tabpanel" aria-labelledby="pills-trailer-tab">
         <div class="page-single">
-            <div class="container">
+            <div class="container player w-75">
                 {{ movies.iframe|safe }}
             </div>
         </div>

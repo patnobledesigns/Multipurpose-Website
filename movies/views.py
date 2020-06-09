@@ -44,7 +44,7 @@ class Home(ListView):
     paginate_by = 6
     
     def get_queryset(self):
-        return Post.objects.all()
+        return Post.objects.all().order_by('-timestamp')
     
     def get_context_data(self, **kwargs):
         most_recent = Post.objects.order_by('-timestamp')[:3]
@@ -73,7 +73,7 @@ class Movies(ListView):
         if query: 
             allmovies = Movie.objects.filter(name__icontains=query)
         else:
-            allmovies = Movie.objects.filter(Tagname="Movies").order_by('-date_posted')
+            allmovies = Movie.objects.all().order_by('-date_posted')
         return allmovies
     
     def get_context_data(self, **kwargs):
@@ -148,7 +148,7 @@ def delete_review(request, slug, pk):
         return redirect('login')
 
         
-def create_movie(request):
+def movieCreate(request):
     if not request.user.is_staff or not request.user.is_superuser:
         return redirect('allmovies')
     else:

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'movies.apps.MoviesConfig',
     'account.apps.AccountConfig',
     'news.apps.NewsConfig',
+    'newsletters.apps.NewslettersConfig',
     'crispy_forms',
     'tinymce',
     'taggit'

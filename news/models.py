@@ -2,6 +2,7 @@ from django.db import models
 from tinymce import HTMLField
 from django.urls import reverse
 from django.contrib.auth.models import User
+from django.template.defaultfilters import slugify
 from account.models import *
 
 from taggit.managers import TaggableManager
@@ -40,8 +41,8 @@ class Category(models.Model):
         return self.name
    
 class Post(models.Model):
-    title = models.CharField(max_length=1000, null=True, blank=True)
-    slug = models.SlugField(max_length=1000, null=True, blank=True)
+    title = models.CharField(max_length=1000, null=True, blank=True, unique=True)
+    slug = models.SlugField(max_length=1000, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     content = HTMLField(null=True, blank=True)
     author = models.ForeignKey(Author, on_delete=models.CASCADE, null=True, blank=True)
@@ -53,6 +54,15 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def save(self, *args, **kwargs):
+        """
+        Slugify name if it doesn't exist. IMPORTANT: doesn't check to see
+        if slug is a dupe!
+        """
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super(Post, self).save(*args, **kwargs)
     
     def get_absolute_url(self):
         return reverse("newsInfo", kwargs={"slug": self.slug})
