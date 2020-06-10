@@ -9,7 +9,8 @@
                 <h2 class="account-heading">{{ user.username }}</h2>
                 <p class="text-default">{{ request.user.email }}</p>
                 
-                    <a href="{% url 'password_reset' %}"><p class="text-muted mt-2">Reset Password</p></a>
+                    <a style="display:block; "href="{% url 'password_reset' %}"><p class="text-muted mt-2">Reset Password</p></a>
+                    <a href="{% url 'unsubscribe' %}"><button class="btn btn-outline-info btn-md mt-2" style="color:white;">Unsubscribe from newsletter</button></a>
                 
             </div>
         </div>

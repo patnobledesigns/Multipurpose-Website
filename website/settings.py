@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'account.apps.AccountConfig',
     'news.apps.NewsConfig',
     'newsletters.apps.NewslettersConfig',
+    'controlpanels.apps.ControlpanelsConfig',
     'crispy_forms',
     'tinymce',
     'taggit'

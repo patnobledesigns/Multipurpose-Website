@@ -34,6 +34,9 @@
                           {{ request.user.username }}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        {% if request.user.is_superuser or request.user.is_staff %}
+                        <a href="{% url 'control_newsletter' %}" class="nav-link" style="color:black; font-weight: bold;"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</a>
+                        {% endif %}
                         <a href="{% url 'profile' %}" class="nav-link" style="color:black; font-weight: bold;"><i class="fa fa-user" aria-hidden="true"></i> Profile</a>
                         <a href="{% url 'logout' %}" class="nav-link" style="color:black; font-weight: bold;"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
                           

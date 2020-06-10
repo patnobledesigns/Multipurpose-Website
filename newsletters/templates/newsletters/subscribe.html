@@ -1,18 +1,18 @@
 {% extends "movies/base.html" %} 
 {% load crispy_forms_tags %}
  {% block content %} 
- <div class="container w-75">
+ <div class="container w-50">
  <div class="widget tags" style="border:none;"> 
           <div class="form-element">       
             <header>
               <h2 class="text-center">NEWSLETTER</h2>
-              <p class="text-center">Stay updated with our latest</p>
+              <p class="text-center">Subscribe and stay updated with our latest</p>
             </header>
             {% if messages %}
               {% for message in messages %}
               <div {% if message.tags %} class="{{ message.tags }}" {% endif %} role="alert">
               <button type="button" class="close" data-dismiss="alert" aria-label="close">
-              <span aria-hidden="true">&times;</span></button>      
+              <span aria-hidden="true">&times;</span></button>
               {{ message }}
               </div>
               {% endfor %}

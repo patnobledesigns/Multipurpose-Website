@@ -1,0 +1,100 @@
+{% extends "controlpanels/base_newsletter.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+    <div class="sidebar-menu-inner">
+
+      <!-- sidebar nav start -->
+      <ul class="nav nav-pills nav-stacked custom-nav">
+        <li class="active"><a href="{% url 'control_newsletter' %}"><i class="fa fa-tachometer"></i><span> Dashboard</span></a>
+        </li>
+        <li><a href="#"><i class="fa fa-cogs"></i><span>Settings</span></a>
+        </li>
+        <li><a href="{% url 'control_newsletter_list' %}"><i class="fa fa-file-text"></i><span>All NewsLetters</span></a></li>
+      </ul>
+      <!-- //sidebar nav end -->
+      <!-- toggle button start -->
+      <a class="toggle-btn">
+        <i class="fa fa-angle-double-left menu-collapsed__left"><span>Collapse Sidebar</span></i>
+        <i class="fa fa-angle-double-right menu-collapsed__right"></i>
+      </a>
+      <!-- //toggle button end -->
+    </div>
+  </div>
+  <!-- //sidebar menu end -->
+  <!-- header-starts -->
+  <div class="header sticky-header">
+
+    <!-- notification menu start -->
+    <div class="menu-right">
+      <div class="navbar user-panel-top">
+
+        <div class="user-dropdown-details d-flex">
+
+          <div class="profile_details">
+            <ul>
+              <li class="dropdown profile_details_drop">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="dropdownMenu3" aria-haspopup="true"
+                  aria-expanded="false">
+                  <div class="profile_img">
+                    <img src="{{ user.author.profile_picture.url }}" class="rounded-circle" alt="" />
+                    <div class="user-active">
+                      <span></span>
+                    </div>
+                  </div>
+                </a>
+                <ul class="dropdown-menu drp-mnu" aria-labelledby="dropdownMenu3">
+                  <li class="user-info">
+                    <h5 class="user-name">{{user.username}}</h5>
+                  </li>
+                  <li> <a href="{% url 'home' %}"><i class="fa fa-home" aria-hidden="true"></i> Home</a> </li>
+                  <li> <a href="{% url 'profile' %}"><i class="fa fa-user" aria-hidden="true"></i> My Profile</a> </li>
+                  <li class="logout"> <a href="{% url 'logout' %}"><i class="fa fa-power-off"></i> Logout</a> </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--notification menu end -->
+  </div>
+  <!-- //header-ends -->
+  <!-- main content start -->
+<div class="main-content">
+
+  <!-- content -->
+  <div class="container-fluid content-top-gap">
+
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb my-breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'control_newsletter' %}">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+      </ol>
+    </nav>
+    <div class="welcome-msg pt-3 pb-4">
+      <h1>Hi <span class="text-primary">{{user.username}}</span>, Welcome back</h1>
+      <p>Very detailed & featured admin.</p>
+    </div>
+
+
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+  <div class="page-header">
+    <h1>{{ newsletter.subject }}</h1>
+  </div>
+  {{ newsletter.body }}
+  <div class="col-sm-8 col-sm-offset-4">
+    <div class="col-sm-2"><a href="{% url 'control_newsletter_edit' newsletter.pk %}"><button class="btn btn-info">Edit</button></a></div>
+    <div class="col-sm-2"><button>Delete</button></div>
+    <div class="col-sm-2"><a href="{% url 'control_newsletter' %}"><button class="btn btn-success">New</button></a></div>
+  </div>
+</div>
+
+
+  <!-- //content -->
+</div>
+<!-- main content end-->
+</section>
+{% endblock  %}
+  <!--footer section start-->
