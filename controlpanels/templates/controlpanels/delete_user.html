@@ -7,11 +7,11 @@
 
       <!-- sidebar nav start -->
       <ul class="nav nav-pills nav-stacked custom-nav">
-        <li class="active"><a href="{% url 'control_newsletter' %}"><i class="fa fa-tachometer"></i><span> Dashboard</span></a>
+        <li><a href="{% url 'control_newsletter' %}"><i class="fa fa-tachometer"></i><span> Dashboard</span></a>
         </li>
-        <li><a href="#"><i class="fa fa-cogs"></i><span>Settings</span></a>
+        <li><a href="{% url 'control_settings' %}"><i class="fa fa-cogs"></i><span>Settings</span></a>
         </li>
-        <li><a href="{% url 'control_newsletter_list' %}"><i class="fa fa-file-text"></i><span>All NewsLetters</span></a></li>
+        <li class="active"><a href="{% url 'control_newsletter_list' %}"><i class="fa fa-file-text"></i><span>All Newsletters</span></a></li>
       </ul>
       <!-- //sidebar nav end -->
       <!-- toggle button start -->
@@ -48,27 +48,29 @@
       <p>Very detailed & featured admin.</p>
     </div>
 
-
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-  <div class="page-header">
-    <h1>{{ newsletter.subject }}</h1>
-  </div>
-                        <div class="card card_border mb-2 w-50">
+    <!-- statistics data -->
+     <!-- statistics data -->
+<div class="container mb-4 mt-4" style="color:white;">
+  
+                      <div class="card card_border mb-5 w-50">
                     <div class="cards__heading">
-  {{ newsletter.body }}
-  </div>
-  </div>
-  <div class="col-sm-8 col-sm-offset-4">
-    <a class="btn btn-info" href="{% url 'control_newsletter_edit' newsletter.pk %}">Edit</a>
-    <a class="btn btn-danger" href="{% url 'control_newsletter_delete' newsletter.pk %}" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
-    <a class="btn btn-success" href="{% url 'control_newsletter' %}">New</a>
-  </div>
+      
+<p class="mb-3">Are you want to delete "{{ request.user.username }}" ?</p>
+            <form action="{{ query.get_absolute_url }}" method="POST">
+                {% csrf_token %}
+                <a class="btn btn-warning btn-sm mr-2" href="{% url 'control_settings' %}">Cancel</a>
+                <input class="btn btn-danger btn-sm" type="submit" name="Confirm">
+            </form>
+ 
 </div>
+</div>
+</div>
+    
 
-
+  </div>
   <!-- //content -->
 </div>
 <!-- main content end-->
 </section>
-{% endblock  %}
   <!--footer section start-->
+  {% endblock  %}

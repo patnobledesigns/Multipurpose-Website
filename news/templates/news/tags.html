@@ -46,7 +46,7 @@
                     <div class="date mr-3 meta-last">{{ posts.timestamp|date:"d N | Y"}}</div>
                     <div class="category"><a style="color: white; href="{% url 'postCategory' posts.category.slug%}"><i class="fa fa-tags" aria-hidden="true" style="font-size: 15px"></i> {{ posts.category.name }}</a></div>
                   </div><a href="{{ posts.get_absolute_url }}">
-                    <h3 >{{ posts.title }}</h3></a>
+                    <h3 style="font-size:20px;">{{ posts.title }}</h3></a>
                   <div class="post-footer d-flex align-items-center">
                     <div class="date mr-3"><i class="fa fa-clock-o"></i> {{ posts.timestamp|timesince }} ago</div>
                     <div class="comments meta-last"><i class="fa fa-comments-o"></i> {{ posts.comment_count }}</div>

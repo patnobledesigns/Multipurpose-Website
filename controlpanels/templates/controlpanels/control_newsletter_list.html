@@ -9,7 +9,7 @@
       <ul class="nav nav-pills nav-stacked custom-nav">
         <li><a href="{% url 'control_newsletter' %}"><i class="fa fa-tachometer"></i><span> Dashboard</span></a>
         </li>
-        <li><a href="#"><i class="fa fa-cogs"></i><span>Settings</span></a>
+        <li><a href="{% url 'control_settings' %}"><i class="fa fa-cogs"></i><span>Settings</span></a>
         </li>
         <li class="active"><a href="{% url 'control_newsletter_list' %}"><i class="fa fa-file-text"></i><span>All Newsletters</span></a></li>
       </ul>
@@ -27,37 +27,7 @@
   <div class="header sticky-header">
 
     <!-- notification menu start -->
-    <div class="menu-right">
-      <div class="navbar user-panel-top">
-
-        <div class="user-dropdown-details d-flex">
-
-          <div class="profile_details">
-            <ul>
-              <li class="dropdown profile_details_drop">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="dropdownMenu3" aria-haspopup="true"
-                  aria-expanded="false">
-                  <div class="profile_img">
-                    <img src="{{ user.author.profile_picture.url }}" class="rounded-circle" alt="" />
-                    <div class="user-active">
-                      <span></span>
-                    </div>
-                  </div>
-                </a>
-                <ul class="dropdown-menu drp-mnu" aria-labelledby="dropdownMenu3">
-                  <li class="user-info">
-                    <h5 class="user-name">{{user.username}}</h5>
-                  </li>
-                  <li> <a href="{% url 'home' %}"><i class="fa fa-home" aria-hidden="true"></i> Home</a> </li>
-                  <li> <a href="{% url 'profile' %}"><i class="fa fa-user" aria-hidden="true"></i> My Profile</a> </li>
-                  <li class="logout"> <a href="{% url 'logout' %}"><i class="fa fa-power-off"></i> Logout</a> </li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+{% include 'controlpanels/nav.html' %}
     <!--notification menu end -->
   </div>
   <!-- //header-ends -->

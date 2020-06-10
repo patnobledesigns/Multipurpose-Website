@@ -7,6 +7,8 @@ from .decorators import unauthenticated_user, allowed_users
 from django.core.mail import send_mail
 from django.conf import settings
 from django.template.loader import render_to_string
+from account.models import *
+from django.contrib.auth.models import User
 # Create your views here.
 
 
@@ -174,3 +176,20 @@ def control_newsletter_delete(request, pk):
     newsletter = get_object_or_404(Newsletter, pk=pk)
     newsletter.delete()
     return redirect('control_newsletter_list')
+
+
+@allowed_users(allowed_roles=['Admin'])
+def user_settings(request):
+    query = User.objects.all()
+    queryset = Author.objects.all()
+    context = {
+        'query': query,
+        'queryset': queryset,
+    }
+    template = "controlpanels/control_settings.html"
+    return render(request, template, context)
+
+
+
+    
+    

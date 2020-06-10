@@ -64,7 +64,7 @@
                        {{ post.content|safe }}
                     </div>
                   <div class="review">
-                    <p class="author" data-aos="fade-left" data-aos-delay="200"><i class="fa fa-user-circle-o" aria-hidden="true" style="font-size: 15px;"></i> {{ post.author.user.username }}</p>
+                    <p class="author" data-aos="fade-left" data-aos-delay="200"><i class="fa fa-user-circle-o" aria-hidden="true" style="font-size: 15px;"></i> {{ post.author.user.first_name }} {{ post.author.user.last_name }}</p>
                     <p class="date ml-2" style="display: inline;" data-aos="fade-left" data-aos-delay="200"><i class="fa fa-clock-o" aria-hidden="true"></i> {{post.timestamp|timesince}} ago</p>
                     <p class="author ml-2" data-aos="fade-left" data-aos-delay="200"><i class="fa fa-eye" aria-hidden="true"></i> {{ post.view_count }}</p>
                     <p class="date ml-2" style="display: inline;" data-aos="fade-left" data-aos-delay="200"><i class="fa fa-comments-o" aria-hidden="true"></i> {{ post.comment_count }}</p>

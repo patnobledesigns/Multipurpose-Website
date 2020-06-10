@@ -41,8 +41,8 @@ class Category(models.Model):
         return self.name
    
 class Post(models.Model):
-    title = models.CharField(max_length=1000, null=True, blank=True, unique=True)
-    slug = models.SlugField(max_length=1000, blank=True)
+    title = models.CharField(max_length=500, null=True, blank=True, unique=True)
+    slug = models.SlugField(max_length=500, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     content = HTMLField(null=True, blank=True)
     author = models.ForeignKey(Author, on_delete=models.CASCADE, null=True, blank=True)
@@ -54,6 +54,7 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+        
     
     def save(self, *args, **kwargs):
         """

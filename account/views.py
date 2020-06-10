@@ -1,8 +1,10 @@
-from django.shortcuts import render, redirect, reverse, Http404
+from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.contrib.auth.models import User
 from .forms import *
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from newsletters.decorators import unauthenticated_user, allowed_users
 
 # Create your views here.
 
@@ -88,4 +90,14 @@ def userProfile(request):
     return render(request, 'account/profile.html', context)
 
     
-
+@allowed_users(allowed_roles=['Admin'])   
+def user_delete(request, pk):
+    query = get_object_or_404(User, pk=pk)
+    if request.method == 'POST':
+        query.delete()
+        return redirect('control_settings')
+    
+    context = {
+            'query': query  
+    }
+    return render(request, 'controlpanels/delete_user.html', context)

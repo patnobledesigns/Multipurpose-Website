@@ -135,8 +135,8 @@
                   <div class="post-meta d-flex justify-content-between">
                     <div class="date mr-3 meta-last">{{ post.timestamp|date:"d N | Y"}}</div>
                     <div class="category"><a style="color: white;" href="{% url 'postCategory' post.category.slug %}"><i class="fa fa-tags" aria-hidden="true" style="font-size: 15px"></i> {{ post.category.name }}</a></div>
-                  </div><a href="{{ post.get_absolute_url }}">
-                    <h3 >{{ post.title }}</h3></a>
+                  </div>
+                  <a href="{{ post.get_absolute_url }}"><h3 style="font-size:20px;">{{ post.title }}</h3></a>
                   <div class="post-footer d-flex align-items-center">
                     <div class="date mr-3"><i class="fa fa-clock-o"></i> {{ post.timestamp|timesince }} ago</div>
                     <div class="comments meta-last"><i class="fa fa-comments-o"></i> {{ post.comment_count }}</div>
