@@ -25,15 +25,13 @@ class Command(BaseCommand):
             head = info.select('h1.mvp-post-title, #mvp-post-content h1.mvp-post-title')
             para1 = info.select('span.mvp-post-excerpt.left p')
             img = info.select('#mvp-post-feat-img img')
-            i = [x['src'] for x in img]
-            main = info.select('#mvp-content-main p')
+            q = [x['src'] for x in img]
+            main = info.select('#mvp-content-main')
             
-            for f,g,h,i in zip(head, para1, i, main):
+            for f,g,h,i in zip(head, para1, q, main):
                 title = f.text
-                firstp = g.text
                 image = h
-                mainp = i.text
-                paragraph = firstp + mainp
+                paragraph = i.get_text() + g.get_text()
 
                 try:
                     Post.objects.create(
@@ -49,7 +47,7 @@ class Command(BaseCommand):
                     self.stdout.write(self.style.NOTICE("{} ------- Already Exists" .format(title)))
                         
                         
-        print("{} Sports News successful uploaded".format(count))
+        print("{} Politics News successful uploaded".format(count))
             
             
         

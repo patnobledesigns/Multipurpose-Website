@@ -1,0 +1,258 @@
+{% extends 'movies/base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+
+
+            <hr>
+            <nav class="navbar navbar-dark navbar-expand-lg bg-transparent">
+              <ul class="navbar-nav mr-auto">
+                  <li class="nav-item active"><a class="nav-link" href="#business">Business</a></li>
+                  <li class="nav-item active"><a class="nav-link" href="#entertainment">Entertainment</a></li>
+                  <li class="nav-item active"><a class="nav-link" href="#national">National News</a></li>
+                  <li class="nav-item active"><a class="nav-link" href="#gist">Gist</a></li>
+                  <li class="nav-item active"><a class="nav-link" href="#politics">Politics</a></li>
+                  <li class="nav-item active"><a class="nav-link" href="#sport">Sport</a></li>
+                  {% if request.user.is_superuser or request.user.is_staff %}
+                  <li class="nav-item"><a href="{% url 'news-create' %}" class="nav-link "><i class="fa fa-plus" aria-hidden="true"></i> Add New Post</a></li>
+                  {% endif %}
+                  </ul>
+              <form action="{% url 'searchresult' %}" class="search-form mt-2">
+                <div class="form-group mr-4 search">
+                    <input type="text" name="q" placeholder="Search">
+                    <button type="submit" class="submit"><i class="fa fa-search" style="font-size:17px;" aria-hidden="true"></i></button>
+                </div>
+              </form>
+            </nav>
+            <hr>
+          
+            <!-- SECOND NAV END -->
+
+<!-- MOVIES -->
+        
+      <h1 id="business" style="color: white; class="text-left" data-aos="fade-down" data-aos-delay="100">Business</h1>
+      <div class="row">
+      {% for news in business %}
+        <div class="col-md-6 col-lg-6 mb-3 h-50">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="post-thumbnail">
+                <a href="{{ news.get_absolute_url }}" class="news-thumb">
+                <img src="{{ news.thumbnail }}" alt="..." class="img-fluid rounded">
+                </a>
+                </div>
+                </div>
+                <div class="col-sm">
+                    <div class="post-details">
+                  <a href="{{ news.get_absolute_url }}"><h3 style="font-size:20px;">{{ news.title }}</h3></a>
+                  <div class="post-meta d-flex justify-content-between">
+                    <div class="date mr-3 meta-last">{{ news.timestamp|date:"d N | Y"}}</div>
+                    <div class="category"><a style="color: white;" href="{% url 'postCategory' news.category.slug %}"><i class="fa fa-tags" aria-hidden="true" style="font-size: 15px"></i> {{ news.category.name }}</a></div>
+                  </div>
+                  <div class="post-footer d-flex align-items-center ">
+                    <div class="date mr-3" style="color: white;"><i class="fa fa-clock-o"></i> {{ news.timestamp|timesince }} ago</div>
+                    <div class="comments meta-last" style="color: white;"><i class="fa fa-comments-o"></i> {{ news.comment_count }}</div>
+                  </div>
+                </div>
+                </div>
+            </div>
+           </div>
+           {% if forloop.last %}
+        
+            <a class="btn btn-outline-info btn-sm" style="color:white;" href="{% url 'postCategory' news.category.slug %}">See all <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+ 
+        {% endif %}
+        {% endfor %}
+      </div>
+        <hr> 
+
+
+<h1 id="sport" style="color: white; class="text-left" data-aos="fade-down" data-aos-delay="100">Sport</h1>
+      <div class="row">
+      {% for news in Sport %}
+        <div class="col-md-6 col-lg-6 mb-3 h-50">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="post-thumbnail">
+                <a href="{{ news.get_absolute_url }}" class="news-thumb">
+                <img src="{{ news.thumbnail }}" alt="..." class="img-fluid rounded">
+                </a>
+                </div>
+                </div>
+                <div class="col-sm">
+                    <div class="post-details">
+                  <a href="{{ news.get_absolute_url }}"><h3 style="font-size:20px;">{{ news.title }}</h3></a>
+                  <div class="post-meta d-flex justify-content-between">
+                    <div class="date mr-3 meta-last">{{ news.timestamp|date:"d N | Y"}}</div>
+                    <div class="category"><a style="color: white;" href="{% url 'postCategory' news.category.slug %}"><i class="fa fa-tags" aria-hidden="true" style="font-size: 15px"></i> {{ news.category.name }}</a></div>
+                  </div>
+                  <div class="post-footer d-flex align-items-center ">
+                    <div class="date mr-3" style="color: white;"><i class="fa fa-clock-o"></i> {{ news.timestamp|timesince }} ago</div>
+                    <div class="comments meta-last" style="color: white;"><i class="fa fa-comments-o"></i> {{ news.comment_count }}</div>
+                  </div>
+                </div>
+                </div>
+            </div>
+           </div>
+           {% if forloop.last %}
+        
+            <a class="btn btn-outline-info btn-sm" style="color:white;" href="{% url 'postCategory' news.category.slug %}">See all <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+ 
+        {% endif %}
+        {% endfor %}
+      </div>
+        <hr> 
+<!-- MOVIES END-->
+<h1 id="national" style="color: white; class="text-left" data-aos="fade-down" data-aos-delay="100">National News</h1>
+      <div class="row">
+      {% for news in National %}
+        <div class="col-md-6 col-lg-6 mb-3 h-50">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="post-thumbnail">
+                <a href="{{ news.get_absolute_url }}" class="news-thumb">
+                <img src="{{ news.thumbnail }}" alt="..." class="img-fluid rounded">
+                </a>
+                </div>
+                </div>
+                <div class="col-sm">
+                    <div class="post-details">
+                  <a href="{{ news.get_absolute_url }}"><h3 style="font-size:20px;">{{ news.title }}</h3></a>
+                  <div class="post-meta d-flex justify-content-between">
+                    <div class="date mr-3 meta-last">{{ news.timestamp|date:"d N | Y"}}</div>
+                    <div class="category"><a style="color: white;" href="{% url 'postCategory' news.category.slug %}"><i class="fa fa-tags" aria-hidden="true" style="font-size: 15px"></i> {{ news.category.name }}</a></div>
+                  </div>
+                  <div class="post-footer d-flex align-items-center ">
+                    <div class="date mr-3" style="color: white;"><i class="fa fa-clock-o"></i> {{ news.timestamp|timesince }} ago</div>
+                    <div class="comments meta-last" style="color: white;"><i class="fa fa-comments-o"></i> {{ news.comment_count }}</div>
+                  </div>
+                </div>
+                </div>
+            </div>
+           </div>
+           {% if forloop.last %}
+        
+            <a class="btn btn-outline-info btn-sm" style="color:white;" href="{% url 'postCategory' news.category.slug %}">See all <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+ 
+        {% endif %}
+        {% endfor %}
+      </div>
+        <hr> 
+<!-- MOVIES END-->
+<h1 id="gist" style="color: white; class="text-left" data-aos="fade-down" data-aos-delay="100">Gist</h1>
+      <div class="row">
+      {% for news in Gist %}
+        <div class="col-md-6 col-lg-6 mb-3 h-50">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="post-thumbnail">
+                <a href="{{ news.get_absolute_url }}" class="news-thumb">
+                <img src="{{ news.thumbnail }}" alt="..." class="img-fluid rounded">
+                </a>
+                </div>
+                </div>
+                <div class="col-sm">
+                    <div class="post-details">
+                  <a href="{{ news.get_absolute_url }}"><h3 style="font-size:20px;">{{ news.title }}</h3></a>
+                  <div class="post-meta d-flex justify-content-between">
+                    <div class="date mr-3 meta-last">{{ news.timestamp|date:"d N | Y"}}</div>
+                    <div class="category"><a style="color: white;" href="{% url 'postCategory' news.category.slug %}"><i class="fa fa-tags" aria-hidden="true" style="font-size: 15px"></i> {{ news.category.name }}</a></div>
+                  </div>
+                  <div class="post-footer d-flex align-items-center ">
+                    <div class="date mr-3" style="color: white;"><i class="fa fa-clock-o"></i> {{ news.timestamp|timesince }} ago</div>
+                    <div class="comments meta-last" style="color: white;"><i class="fa fa-comments-o"></i> {{ news.comment_count }}</div>
+                  </div>
+                </div>
+                </div>
+            </div>
+           </div>
+           {% if forloop.last %}
+        
+            <a class="btn btn-outline-info btn-sm" style="color:white;" href="{% url 'postCategory' news.category.slug %}">See all <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+ 
+        {% endif %}
+        {% endfor %}
+      </div>
+        <hr> 
+<!-- MOVIES END-->
+<h1 id="politics" style="color: white; class="text-left" data-aos="fade-down" data-aos-delay="100">Politics</h1>
+      <div class="row">
+      {% for news in Politics %}
+        <div class="col-md-6 col-lg-6 mb-3 h-50">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="post-thumbnail">
+                <a href="{{ news.get_absolute_url }}" class="news-thumb">
+                <img src="{{ news.thumbnail }}" alt="..." class="img-fluid rounded">
+                </a>
+                </div>
+                </div>
+                <div class="col-sm">
+                    <div class="post-details">
+                  <a href="{{ news.get_absolute_url }}"><h3 style="font-size:20px;">{{ news.title }}</h3></a>
+                  <div class="post-meta d-flex justify-content-between">
+                    <div class="date mr-3 meta-last">{{ news.timestamp|date:"d N | Y"}}</div>
+                    <div class="category"><a style="color: white;" href="{% url 'postCategory' news.category.slug %}"><i class="fa fa-tags" aria-hidden="true" style="font-size: 15px"></i> {{ news.category.name }}</a></div>
+                  </div>
+                  <div class="post-footer d-flex align-items-center ">
+                    <div class="date mr-3" style="color: white;"><i class="fa fa-clock-o"></i> {{ news.timestamp|timesince }} ago</div>
+                    <div class="comments meta-last" style="color: white;"><i class="fa fa-comments-o"></i> {{ news.comment_count }}</div>
+                  </div>
+                </div>
+                </div>
+            </div>
+           </div>
+           {% if forloop.last %}
+        
+            <a class="btn btn-outline-info btn-sm" style="color:white;" href="{% url 'postCategory' news.category.slug %}">See all <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+ 
+        {% endif %}
+        {% endfor %}
+      </div>
+        <hr> 
+
+        <h1 id="entertainment" style="color: white; class="text-left" data-aos="fade-down" data-aos-delay="100">Entertainment</h1>
+      <div class="row">
+      {% for news in Entertainment %}
+        <div class="col-md-6 col-lg-6 mb-3 h-50">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="post-thumbnail">
+                <a href="{{ news.get_absolute_url }}" class="news-thumb">
+                <img src="{{ news.thumbnail }}" alt="..." class="img-fluid rounded">
+                </a>
+                </div>
+                </div>
+                <div class="col-sm">
+                    <div class="post-details">
+                  <a href="{{ news.get_absolute_url }}"><h3 style="font-size:20px;">{{ news.title }}</h3></a>
+                  <div class="post-meta d-flex justify-content-between">
+                    <div class="date mr-3 meta-last">{{ news.timestamp|date:"d N | Y"}}</div>
+                    <div class="category"><a style="color: white;" href="{% url 'postCategory' news.category.slug %}"><i class="fa fa-tags" aria-hidden="true" style="font-size: 15px"></i> {{ news.category.name }}</a></div>
+                  </div>
+                  <div class="post-footer d-flex align-items-center ">
+                    <div class="date mr-3" style="color: white;"><i class="fa fa-clock-o"></i> {{ news.timestamp|timesince }} ago</div>
+                    <div class="comments meta-last" style="color: white;"><i class="fa fa-comments-o"></i> {{ news.comment_count }}</div>
+                  </div>
+                </div>
+                </div>
+            </div>
+           </div>
+           {% if forloop.last %}
+        
+            <a class="btn btn-outline-info btn-sm" style="color:white;" href="{% url 'postCategory' news.category.slug %}">See all <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+ 
+        {% endif %}
+        {% endfor %}
+
+        <hr> 
+<!-- MOVIES END-->
+              <!-- End post-->
+            </div>
+            </div>
+            </div>
+            </div>
+            <!-- Pagination -->
+{% endblock %}

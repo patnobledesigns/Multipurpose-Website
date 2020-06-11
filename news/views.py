@@ -18,6 +18,37 @@ def get_category_count():
     queryset = Post.objects.values('category__name').annotate(Count('category__name'))
     return queryset
 
+
+def newsView(request):
+    bus = Category.objects.get(name="Business")
+    business = bus.post_set.all().order_by('-timestamp')[:4]
+    spo = Category.objects.get(name="Sport")
+    Sport = spo.post_set.all().order_by('-timestamp')[:4]
+    pol = Category.objects.get(name="Politics")
+    Politics = pol.post_set.all().order_by('-timestamp')[:4]
+    tech = Category.objects.get(name="Technology")
+    Technology = tech.post_set.all().order_by('-timestamp')[:4]
+    nat = Category.objects.get(name="National News")
+    National = nat.post_set.all().order_by('-timestamp')[:4]
+    ent = Category.objects.get(name="Entertainment")
+    Entertainment = ent.post_set.all().order_by('-timestamp')[:4]
+    edu = Category.objects.get(name="Education")
+    Education = edu.post_set.all().order_by('-timestamp')[:4]
+    gis = Category.objects.get(name="Gist")
+    Gist = gis.post_set.all().order_by('-timestamp')[:4]
+    context={
+        'business': business,
+        'Sport': Sport,
+        'Politics': Politics,
+        'Education': Education,
+        'Entertainment': Entertainment,
+        'National': National,
+        'Technology': Technology,
+        'Gist': Gist,
+    }
+    return render(request, 'news/news.html', context)
+
+
 @login_required(login_url='login')
 def news_detail(request, slug):
     category_count =  get_category_count()
