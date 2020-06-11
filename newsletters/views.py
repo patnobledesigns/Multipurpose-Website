@@ -4,9 +4,9 @@ from .models import *
 from .forms import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .decorators import unauthenticated_user, allowed_users
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMultiAlternatives
 from django.conf import settings
-from django.template.loader import render_to_string
+from django.template.loader import render_to_string, get_template
 from account.models import *
 from django.contrib.auth.models import User
 # Create your views here.
@@ -24,14 +24,16 @@ def newsletter_subscribe(request):
             else:
                 data.save()
                 messages.success(request, 'Your Email has been submitted', "alert alert-success alert-dismissible")
-                template = render_to_string('newsletters/subscribe_email.html')
-                send_mail(
+                body = "From Webtricker"
+                message = EmailMultiAlternatives(
                     "Thank You for Joining Our Newsletter",
-                    template,
+                    body,
                     settings.EMAIL_HOST_USER,
                     [data.email],
-                    fail_silently=False
                 )
+                template = get_template('newsletters/subscribe_email.html').render()
+                message.attach_alternative(template, "text/html")
+                message.send()
     else:
         form = NewsletterUserSignUpForm(request.POST or None)
     context = {
@@ -49,14 +51,16 @@ def newsletter_unsubscribe(request):
             if NewsletterUser.objects.filter(email=data.email).exists():
                 NewsletterUser.objects.filter(email=data.email).delete()
                 messages.success(request, 'Your email has been removed', "alert alert-success alert-dismissible")
-                template = render_to_string('newsletters/unsubscribe_email.html')
-                send_mail(
-                    "Thank You for Joining Our Newsletter",
-                    template,
+                body = "From Webtricker"
+                message = EmailMultiAlternatives(
+                    "Sucessfully Unsubcribed",
+                    body,
                     settings.EMAIL_HOST_USER,
                     [data.email],
-                    fail_silently=False
                 )
+                template = get_template('newsletters/unsubscribe_email.html').render()
+                message.attach_alternative(template, "text/html")
+                message.send()
             else:
                 messages.warning(request, 'Your email does not exist', "alert alert-warning alert-dismissible")
     else:
