@@ -11,7 +11,7 @@ class Command(BaseCommand):
 
 
     def handle(self, *args, **options):
-        page = requests.get("https://www.naijanews.com/sports/")
+        page = requests.get("https://www.naijanews.com/entertainment/")
 
         soup =  BeautifulSoup(page.content,'html.parser')
         a = soup.select('ul.mvp-blog-story-list.left.relative.infinite-content li a')
@@ -39,10 +39,9 @@ class Command(BaseCommand):
                     Post.objects.create(
                         title=title,
                         content=paragraph,
-                        category = Category.objects.get(name="Sport"),
+                        category = Category.objects.get(name="Entertainment"),
                         thumbnail = image,
-                        author = Author.objects.get(user=1) ,
-                        tags = Tag.objects.get(id=15), 
+                        author = Author.objects.get(user=1),
                     )
                     count = count + 1
                     self.stdout.write(self.style.SUCCESS("{} ------- successful uploaded" .format(title)))
@@ -59,3 +58,5 @@ class Command(BaseCommand):
         
         
         
+        
+       
