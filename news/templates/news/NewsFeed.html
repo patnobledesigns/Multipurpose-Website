@@ -139,7 +139,7 @@
                       </div>
                       {% else %}
                       <div class="form-group col-md-12">
-                      <a href="{% url 'login' %}" type="submit" class="btn btn-outline-info btn-sm my-2 my-sm-0">Login to comment</a>
+                      <a href="{{ get.absolute.uri }}/login/?next=/news/{{ slug }}" type="submit" class="btn btn-outline-info btn-sm my-2 my-sm-0">Login to comment</a>
                       </div>
                       {% endif %}
                 </div>
@@ -160,6 +160,7 @@
                    </div>
             </div>
       </div>
+            
             
 
 {% endblock %}

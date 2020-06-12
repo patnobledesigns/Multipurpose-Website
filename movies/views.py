@@ -81,7 +81,6 @@ class Movies(ListView):
         context["title"] = 'Movies'
         return context
     
-@login_required(login_url='login')
 def movies_detail(request, slug):
     movies = get_object_or_404(Movie, slug=slug)
     reviews = Review.objects.filter(movie__slug=slug).order_by('-date_posted')
@@ -89,24 +88,23 @@ def movies_detail(request, slug):
     if average == None:
         average = 0
     average = round(average, 1)
-    try:
-        if request.method == "POST":
-            form = MovieReviewForm(request.POST or None)
-            if form.is_valid():
-                data = form.save(commit=False)
-                data.comment = request.POST["comment"]
-                data.rating = request.POST["rating"]
-                data.user = request.user
-                data.movie = movies
-                data.save()
-                return redirect('allmoviesInfo', slug)
-        else:
-            form = MovieReviewForm(request.POST or None)
-    except ValueError:
-        return redirect('login')
+    if request.method == "POST":
+        form = MovieReviewForm(request.POST or None)
+        if form.is_valid():
+            data = form.save(commit=False)
+            data.comment = request.POST["comment"]
+            data.rating = request.POST["rating"]
+            data.user = request.user
+            data.movie = movies
+            data.save()
+            return redirect('allmoviesInfo', slug)
+    else:
+        form = MovieReviewForm(request.POST or None)
+
 
     context={
         'movies': movies,
+        'slug': slug,
         'form': form, 
         'reviews': reviews, 
         'average': average, 

@@ -26,8 +26,8 @@ def newsView(request):
     Sport = spo.post_set.all().order_by('-timestamp')[:4]
     pol = Category.objects.get(name="Politics")
     Politics = pol.post_set.all().order_by('-timestamp')[:4]
-    tech = Category.objects.get(name="Technology")
-    Technology = tech.post_set.all().order_by('-timestamp')[:4]
+    # tech = Category.objects.get(name="Technology")
+    # Technology = tech.post_set.all().order_by('-timestamp')[:4]
     nat = Category.objects.get(name="National News")
     National = nat.post_set.all().order_by('-timestamp')[:4]
     ent = Category.objects.get(name="Entertainment")
@@ -37,26 +37,25 @@ def newsView(request):
     gis = Category.objects.get(name="Gist")
     Gist = gis.post_set.all().order_by('-timestamp')[:4]
     context={
+        'title': 'News Update',
         'business': business,
         'Sport': Sport,
         'Politics': Politics,
         'Education': Education,
         'Entertainment': Entertainment,
         'National': National,
-        'Technology': Technology,
+        # 'Technology': Technology,
         'Gist': Gist,
     }
     return render(request, 'news/news.html', context)
 
 
-@login_required(login_url='login')
 def news_detail(request, slug):
     category_count =  get_category_count()
     most_recent = Post.objects.order_by('-timestamp')[:3]
     post = get_object_or_404(Post, slug=slug)
     tags = Tag.objects.all()
     share_string = quote_plus(post.content)
-    
     if request.user.is_authenticated:
         PostView.objects.get_or_create(user=request.user, post=post)
     
@@ -73,6 +72,7 @@ def news_detail(request, slug):
     context={
         'title': post,
         'post': post,
+        'slug': slug,
         'category_count': category_count,
         'most_recent': most_recent,
         'form': form,

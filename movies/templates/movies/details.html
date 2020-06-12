@@ -78,9 +78,9 @@
                   <li class="nav-item">
                       <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="true">REVIEW</a>
                   </li>
-                  <li class="nav-item">
+                  {% comment %} <li class="nav-item">
                       <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="true">RELATED MOVIES</a>
-                  </li>
+                  </li> {% endcomment %}
                   <li class="nav-item">
                       <a  class="nav-link" href="#pills-trailer" id="pills-trailer-tab" data-toggle="pill" aria-controls="pills-trailer" aria-selected="true">WATCH TRAILER</a>
                   </li>
@@ -111,6 +111,7 @@
             <div class="container" style="color:white;">
                 
                 <div class="form-row">
+    {% if request.user.is_authenticated %}
                         <div class="form-group col-md-4">
                             <form action="{% url 'allmoviesInfo' movies.slug %}" method="POST">
                                 {% csrf_token %}
@@ -121,6 +122,11 @@
                                     <button type="submit" class="btn btn-primary btn-md btn-block mt-2">Submit</button>
                             </form>
                         </div>
+                        {% else %}
+                      <div class="form-group col-md-12">                      
+                      <a href="{{ get.absolute.uri }}/login/?next=/news/{{ slug }}" type="submit" class="btn btn-outline-info" style="color:white;">Login to Add review</a>
+                      </div>
+                        {% endif %}
                         <div class="col-md-6 ml-4">
                             <div class="scrollbar">
                             {% for review in reviews %}
@@ -159,7 +165,7 @@
         </div>
     </div>
 
-    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab"> 
+    {% comment %} <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab"> 
         <div class="page-single">
             <div class="container">
                 <div class="row">
@@ -172,7 +178,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> {% endcomment %}
 </div>
 {% endblock %}
 
