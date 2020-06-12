@@ -1,5 +1,6 @@
 from django.db import models
 from tinymce import HTMLField
+from ckeditor.fields import RichTextField
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
@@ -44,7 +45,7 @@ class Post(models.Model):
     title = models.CharField(max_length=500, null=True, blank=True, unique=True)
     slug = models.SlugField(max_length=500, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-    content = HTMLField(null=True, blank=True)
+    content = RichTextField(null=True, blank=True)
     author = models.ForeignKey(Author, on_delete=models.CASCADE, null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
     thumbnail = models.URLField(max_length=1000, null=True, blank=True)

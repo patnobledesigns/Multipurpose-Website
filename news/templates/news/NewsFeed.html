@@ -35,21 +35,21 @@
                         <div class="social text-grey share mt-2" style="font-size:20px!important;">    
                           <p>Share on:
     <a class="facebook" target="blank" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">
-      <i class="fa fa-facebook-square" aria-hidden="true"></i>
+      <i class="fa fa-facebook" aria-hidden="true"></i>
     </a>
 
     <a class="twitter" target="blank" href="https://twitter.com/home?status={{ post.content|urlify|truncatechars:80  }}%20{{ request.build_absolute_uri }}">
-      <i class="fa fa-twitter-square" aria-hidden="true"></i>
+      <i class="fa fa-twitter" aria-hidden="true"></i>
     </a>
 
 
     <a class="google" target="blank" href='https://plus.google.com/share?url={{ request.build_absolute_uri }}'>
-      <i class="fa fa-google-plus-square" aria-hidden="true"></i>
+      <i class="fa fa-google-plus" aria-hidden="true"></i>
     </a>
 
 
     <a class="linkedin" target="blank" href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&title={{ post.title|urlify }}&summary={{ share_string }}&source={{ request.build_absolute_uri }}">
-     <i class="fa fa-linkedin-square" aria-hidden="true"></i>
+     <i class="fa fa-linkedin" aria-hidden="true"></i>
     </a>
   </p>
   </div>

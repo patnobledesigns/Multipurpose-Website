@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
+    
     'movies.apps.MoviesConfig',
     'account.apps.AccountConfig',
     'news.apps.NewsConfig',
@@ -45,7 +46,9 @@ INSTALLED_APPS = [
     'controlpanels.apps.ControlpanelsConfig',
     'crispy_forms',
     'tinymce',
-    'taggit'
+    'ckeditor',
+    'ckeditor_uploader',
+    'taggit',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -166,6 +169,23 @@ TINYMCE_DEFAULT_CONFIG = {
     'contextmenu': 'formats | link image',
     'menubar': True,
     'statusbar': True,
+}
+
+SITE_ID = 1
+ 
+####################################
+    ##  CKEDITOR CONFIGURATION ##
+####################################
+ 
+CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
+ 
+CKEDITOR_UPLOAD_PATH = 'static/media/'
+CKEDITOR_IMAGE_BACKEND = "pillow"
+ 
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': None,
+    },
 }
 
 
