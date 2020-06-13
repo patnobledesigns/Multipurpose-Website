@@ -349,7 +349,7 @@ img > a,p{
 }
 .post-thumb img{
   width: 350px;
-  height: 300px;
+  height: 250px;
   position:relative;
   display: block;
   border-radius: 10px;

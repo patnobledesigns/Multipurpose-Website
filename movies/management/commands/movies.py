@@ -10,7 +10,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         url = "https://www.thenetnaija.com/videos/movies/page/"
-        for pages in range(127):
+        for pages in range(1):
             page = requests.get(url + str(pages))
 
             soup =  BeautifulSoup(page.content,'html.parser')
@@ -65,13 +65,12 @@ class Command(BaseCommand):
                     for d,e,f,g in zip(img,content,emb,runt):
                         image = d
                         cont = e.text
-                        embed = str(f)    
-                        print(len(image))            
+                        embed = str(f)         
                         try:
                             Movie.objects.create(
                                 name=title,
                                 star=stars,
-                                genre=genre,
+                                genre=genre,        
                                 overview=cont,
                                 release_date=releasedate,
                                 language=language,

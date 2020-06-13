@@ -63,7 +63,7 @@
         {% for movie in movie  %}
             <div class="col-sm-4 col-md-4 col-lg" data-aos="fade-right" data-aos-delay="200">
                 <a href="{{ movie.get_absolute_url }}" class="album-poster"><img src="{{ movie.thumbnail }}" alt="..." class="img-fluid rounded"></a>
-                <a href="{{ movie.get_absolute_url }}"><p data-aos="fade-right" data-aos-delay="200">{{ movie.name }}</p></a>
+                <a href="{{ movie.get_absolute_url }}"><p data-aos="fade-right" data-aos-delay="200"><i class="fa fa-play-circle" aria-hidden="true" style="color: yellow"></i> {{ movie.name }}</p></a>
             </div>
         {% endfor %}
         </div>

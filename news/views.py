@@ -141,13 +141,12 @@ def postCategory(request, category_slug):
         
     context = {
         'categories': categories,
-        'post': posts,
+        'page_obj': users,
         'category': category,
         'category_count': category_count,
         'most_recent': most_recent,
         'tags': tags,
         'title': category,
-        'page_obj': users,
         'page_request_var': page_request_var
     }
     return render(request, 'news/postCategory.html', context)

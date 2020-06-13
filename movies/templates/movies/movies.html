@@ -27,7 +27,7 @@
         {% for movie in movies  %}
             <div class="col-md-2 mb-4" data-aos="fade-right" data-aos-delay="200">
                 <a href="{{ movie.get_absolute_url }}" class="album-poster"><img src="{{ movie.thumbnail }}" alt="..." class="img-fluid rounded"></a>
-                <a href="#"><p data-aos="fade-right" data-aos-delay="200"><i class="fa fa-play" style="color:yellow;" aria-hidden="true"></i> {{ movie.name }}</p></a>
+                <a href="#"><p data-aos="fade-right" data-aos-delay="200"><i class="fa fa-play-circle" aria-hidden="true" style="color: yellow"></i> {{ movie.name }}</p></a>
             </div>
           {% endfor %}
         </div>
@@ -36,7 +36,7 @@
             <nav aria-label="Page navigation example">
                 <ul class="pagination pagination-template d-flex justify-content-center">
                   {% if page_obj.has_previous %}
-                  <li class="page-item"><a href="?page=1" class="page-link"> <i class="fa fa-angle-left" aria-hidden="true"></i><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+                  <li class="page-item"><a href="?page=1" class="page-link"><i class="fa fa-angle-left" aria-hidden="true"></i><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
                   <li class="page-item"><a href="?page={{ page_obj.previous_page_number }}" class="page-link"> <i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
                   {% endif %}
 

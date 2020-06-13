@@ -107,7 +107,7 @@ def control_newsletter(request):
 @allowed_users(allowed_roles=['Admin'])
 def control_newsletter_list(request):
     newsletters = Newsletter.objects.all()
-    paginator = Paginator(newsletters, 10)
+    paginator = Paginator(newsletters, 5)
     page = request.GET.get('page')
     try:
         queryset = paginator.page(page)
@@ -123,7 +123,7 @@ def control_newsletter_list(request):
     page_range = paginator.page_range[start_index:end_index]
     
     context = {
-        'queryset': queryset,
+        'items': queryset,
         'page_range': page_range,
     }
     template = "controlpanels/control_newsletter_list.html"

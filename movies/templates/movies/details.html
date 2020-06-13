@@ -51,14 +51,15 @@
 
                             <div class="associate mt-3">
                             
-                            <p>Genre: {{ movies.genre }}</p>
+                            <p><b>Genre:</b> {{ movies.genre }}</p>
+                            <p><b>Stars:</b> {{ movies.star }}</p>
                         
                             
-                            <p>Release Date: {{ movies.release_date }}</p>
-                            <p>Runtime: {{ movies.runtime}}</p>
-                            <p>Language: {{ movies.language }}</p>
-                            <p>IMDB Link:  <a class="text-primary" href="{{ movies.imdb }}" target="blank"> {{ movies.imdb }} </a></p>
-                            <p>Source: {{ movies.source }}</p>
+                            <p><b>Release Date:</b> {{ movies.release_date }}</p>
+                            <p><b>Runtime:</b> {{ movies.runtime}}</p>
+                            <p><b>Language:</b> {{ movies.language }}</p>
+                            <p><b>IMDB Link:</b>  <a class="text-secondary" href="{{ movies.imdb }}" target="blank"> {{ movies.imdb }} </a></p>
+                            <p><b>Source:</b> {{ movies.source }}</p>
                             </div>
                         <br>
                         <div class="downloadlink">

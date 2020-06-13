@@ -181,12 +181,13 @@ CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery
 
 CKEDITOR_UPLOAD_PATH = 'static/media/'
 CKEDITOR_IMAGE_BACKEND = "pillow"
- 
+
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': None,
         'width': '100%',
     },
+    
     'extraPlugins': ','.join([
         'html5validation'
     ])

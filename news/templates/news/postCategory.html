@@ -32,7 +32,7 @@
           <div class="container">
             <div class="row">
               <!-- post -->
-              {% for posts in post %}
+              {% for posts in page_obj %}
               <div class="post col-xl-6">
                 <div class="post-thumbnail">
                 <a href="{{ posts.get_absolute_url }}" class="post-thumb">

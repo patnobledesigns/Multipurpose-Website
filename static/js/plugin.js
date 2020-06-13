@@ -3,6 +3,12 @@
  */
 
 
+
+CKEDITOR.config.colorButton_foreStyle = {
+    element: 'font',
+    attributes: { 'color': '#000000' }
+};
+
 CKEDITOR.plugins.add('html5validation', {
 	icons: false,
 	lang: 'en,fr,es,ru,it',
