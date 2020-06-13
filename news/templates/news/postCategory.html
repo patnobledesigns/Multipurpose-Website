@@ -12,7 +12,7 @@
                   <li class="nav-item"><a href="{% url 'news-create' %}" class="nav-link "><i class="fa fa-plus" aria-hidden="true"></i> Add New Post</a></li>
                   {% endif %}
                   </ul>
-              <form action="{% url 'searchresult' %}" class="search-form mt-2">
+              <form action="{% url 'search' %}" class="search-form mt-2">
                 <div class="form-group mr-4 search">
                     <input type="text" name="q" placeholder="Search">
                     <button type="submit" class="submit"><i class="fa fa-search" style="font-size:17px;" aria-hidden="true"></i></button>
@@ -55,25 +55,25 @@
               <!-- End post-->
             </div>
             <!-- Pagination -->
-
+      
             <nav aria-label="Page navigation example">
                 <ul class="pagination pagination-template d-flex justify-content-center">
                   {% if page_obj.has_previous %}
-                  <li class="page-item"><a href="?page=1" class="page-link"> <i class="fa fa-angle-left" aria-hidden="true"></i><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
-                  <li class="page-item"><a href="?page={{ page_obj.previous_page_number }}" class="page-link"> <i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+                  <li class="page-item"><a href="?{{page_request_var}}=1" class="page-link"> <i class="fa fa-angle-left" aria-hidden="true"></i><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+                  <li class="page-item"><a href="?{{page_request_var}}={{ page_obj.previous_page_number }}" class="page-link"> <i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
                   {% endif %}
 
                   {% for num in page_obj.paginator.page_range %}
                   {% if page_obj.number == num %}
-                  <li class="page-item"><a href="?page={{ num }}" class="page-link active">{{ num }}</a></li>
+                  <li class="page-item"><a href="?{{page_request_var}}={{ num }}" class="page-link active">{{ num }}</a></li>
                   {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                  <li class="page-item"><a href="?page={{ num }}" class="page-link">{{ num }}</a></li>
+                  <li class="page-item"><a href="?{{page_request_var}}={{ num }}" class="page-link">{{ num }}</a></li>
                   {% endif %}
                  {% endfor %}
   
                  {% if page_obj.has_next %}
-                  <li class="page-item"><a href="?page={{ page_obj.next_page_number }}" class="page-link"> <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-                  <li class="page-item"><a href="?page={{ page_obj.paginator.num_pages }}" class="page-link"><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                  <li class="page-item"><a href="?{{page_request_var}}={{ page_obj.next_page_number }}" class="page-link"> <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                  <li class="page-item"><a href="?{{page_request_var}}={{ page_obj.paginator.num_pages }}" class="page-link"><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
                   {% endif %}
                 </ul>
               </nav>
@@ -113,48 +113,3 @@
 {% endblock %}
 
 
-<!-- <footer class="py-5 bg-dark">
-    <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
-    </div>
-
-  </footer> -->
-
-
-
-
-
-
-   <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
-</body>
-</html>
-
-
-
-
-
-              <!-- Pagination 
-  {% if is_paginated %}
-              <nav aria-label="Page navigation example">
-                <ul class="pagination pagination-template d-flex justify-content-center">
-                  {% if page_obj.has_previous %}
-                  <li class="page-item"><a href="?page=1" class="page-link"> <i class="fa fa-angle-left"></i></a></li>
-                  <li class="page-item"><a href="?page={{ page_obj.previous_page_number }}" class="page-link"> <i class="fa fa-angle-left"></i></a></li>
-                  {% endif %}
-                  {% for num in page_obj.paginator.page_range %}
-                  {% if page_obj.number == num %}
-                  <li class="page-item"><a href="?page={{ num }}" class="page-link active">{{ num }}</a></li>
-                  {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                  <li class="page-item"><a href="?page={{ num }}" class="page-link">{{ num }}</a></li>
-                  {% endif %}
-                 {% endfor %}
-  
-                 {% if page_obj.has_next %}
-                  <li class="page-item"><a href="?page={{ page_obj.next_page_number }}" class="page-link"> <i class="fa fa-angle-right"></i></a></li>
-                  <li class="page-item"><a href="?page={{ page_obj.paginator.num_pages }}" class="page-link"> <i class="fa fa-angle-right"></i></a></li>
-                  {% endif %}
-                </ul>
-              </nav>
-  {% endif %}-->

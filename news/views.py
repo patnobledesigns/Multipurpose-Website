@@ -6,6 +6,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from taggit.models import Tag
 from urllib.parse import quote_plus
+from django.views.generic import ListView, DetailView
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 def get_author(user):
@@ -26,8 +28,8 @@ def newsView(request):
     Sport = spo.post_set.all().order_by('-timestamp')[:4]
     pol = Category.objects.get(name="Politics")
     Politics = pol.post_set.all().order_by('-timestamp')[:4]
-    # tech = Category.objects.get(name="Technology")
-    # Technology = tech.post_set.all().order_by('-timestamp')[:4]
+    tech = Category.objects.get(name="Technology")
+    Technology = tech.post_set.all().order_by('-timestamp')[:4]
     nat = Category.objects.get(name="National News")
     National = nat.post_set.all().order_by('-timestamp')[:4]
     ent = Category.objects.get(name="Entertainment")
@@ -44,7 +46,7 @@ def newsView(request):
         'Education': Education,
         'Entertainment': Entertainment,
         'National': National,
-        # 'Technology': Technology,
+        'Technology': Technology,
         'Gist': Gist,
     }
     return render(request, 'news/news.html', context)
@@ -81,16 +83,62 @@ def news_detail(request, slug):
     }
     return render(request, 'news/NewsFeed.html', context)
 
+
+# class Postcategory(DetailView):
+#     model = Post
+#     template_name = 'news/postCategory.html'
+#     context_object_name = 'post'
+#     paginate_by = 6
+#     slug_field = "slug"
+#     slug_url_kwarg = "article_slug"
+    
+#     def get_object(self):
+#         category = get_object_or_404(Category, slug=self.kwargs['slug'])
+#         return category
+    
+#     def get_queryset(self):
+#         slug=self.kwargs.get("slug")
+#         if slug:
+#             post  = Post.objects.all()
+#             category = get_object_or_404(Category, slug=slug)
+#             posts = post.filter(category=category).order_by('-id')
+#             return posts
+    
+#     def get_context_data(self, **kwargs):
+#         category_count =  get_category_count()
+#         most_recent = Post.objects.order_by('-timestamp')[:3]
+#         categories = Category.objects.all()
+#         tags = Tag.objects.all()
+#         context = super().get_context_data(**kwargs)
+#         context["category_count"] = category_count
+#         context["most_recent"] = most_recent
+#         context["tags"] = Tag.objects.all()
+#         context["categories"] = categories
+#         return context
+
 def postCategory(request, category_slug):
     category_count =  get_category_count()
     most_recent = Post.objects.order_by('-timestamp')[:3]
     categories = Category.objects.all()
     post  = Post.objects.all()
     tags = Tag.objects.all()
+
     
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
-        posts = post.filter(category=category)
+        posts = post.filter(category=category).order_by('-id')
+        page_request_var = 'page'  
+        page = request.GET.get(page_request_var)
+
+        paginator = Paginator(posts, 6)
+        try:
+            users = paginator.page(page)
+        except PageNotAnInteger:
+            users = paginator.page(1)
+        except EmptyPage:
+            users = paginator.page(paginator.num_pages)
+            print(users)
+        
     context = {
         'categories': categories,
         'post': posts,
@@ -99,6 +147,8 @@ def postCategory(request, category_slug):
         'most_recent': most_recent,
         'tags': tags,
         'title': category,
+        'page_obj': users,
+        'page_request_var': page_request_var
     }
     return render(request, 'news/postCategory.html', context)
     

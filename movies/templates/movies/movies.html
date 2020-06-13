@@ -7,7 +7,7 @@
             <hr>
             <nav class="navbar navbar-dark navbar-expand-lg bg-transparent">
               <ul class="navbar-nav mr-auto">
-                    <li class="nav-item"><a class="nav-link active" href="#"><i class="fa fa-film" aria-hidden="true"></i> MOVIES</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'allmovies' %}"><i class="fa fa-film" aria-hidden="true"></i> MOVIES</a></li>
                     {% if request.user.is_superuser or request.user.is_staff %}
                         <li class="nav-item"><a class="nav-link" href="{% url 'createmovie' %}"><i class="fa fa-plus" aria-hidden="true"></i> ADD MOVIES</a></li>
                     {% endif %}
@@ -27,7 +27,7 @@
         {% for movie in movies  %}
             <div class="col-md-2 mb-4" data-aos="fade-right" data-aos-delay="200">
                 <a href="{{ movie.get_absolute_url }}" class="album-poster"><img src="{{ movie.thumbnail }}" alt="..." class="img-fluid rounded"></a>
-                <a href="#"><p data-aos="fade-right" data-aos-delay="200">{{ movie.name }}</p></a>
+                <a href="#"><p data-aos="fade-right" data-aos-delay="200"><i class="fa fa-play" style="color:yellow;" aria-hidden="true"></i> {{ movie.name }}</p></a>
             </div>
           {% endfor %}
         </div>

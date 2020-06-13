@@ -16,19 +16,19 @@
             <div class="collapse navbar-collapse" id="basicExampleNav">
                 <!-- Links -->
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'home' %}"><i class="fa fa-home" aria-hidden="true"></i> HOME</a>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a href="{% url 'allmovies' %}" class="nav-link" ><i class="fa fa-film" aria-hidden="true"></i> MOVIES</a>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a href="#" class="nav-link"><i class="fa fa-music" aria-hidden="true"></i> MUSIC</a>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a href="{% url 'news' %}" class="nav-link"><i class="fa fa-newspaper-o" aria-hidden="true"></i> NEWS</a>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a href="#" class="nav-link" ><i class="fa fa-phone" aria-hidden="true"></i> CONTACT US</a>
                     </li>
                         {% if user.is_authenticated %}
@@ -38,10 +38,10 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         {% if request.user.is_superuser or request.user.is_staff %}
-                        <a href="{% url 'control_newsletter' %}" class="nav-link" style="color:black; font-weight: bold;"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</a>
+                        <a href="{% url 'control_newsletter' %}" class="nav-link" style="color:black!important; font-weight: bold;"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</a>
                         {% endif %}
-                        <a href="{% url 'profile' %}" class="nav-link" style="color:black; font-weight: bold;"><i class="fa fa-user" aria-hidden="true"></i> Profile</a>
-                        <a href="{% url 'logout' %}" class="nav-link" style="color:black; font-weight: bold;"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+                        <a href="{% url 'profile' %}" class="nav-link" style="color:black!important; font-weight: bold;"><i class="fa fa-user" aria-hidden="true"></i> Profile</a>
+                        <a href="{% url 'logout' %}" class="nav-link" style="color:black!important; font-weight: bold;"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
                           
                         </div>
                       </li>
