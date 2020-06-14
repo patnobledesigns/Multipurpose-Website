@@ -84,38 +84,6 @@ def news_detail(request, slug):
     return render(request, 'news/NewsFeed.html', context)
 
 
-# class Postcategory(DetailView):
-#     model = Post
-#     template_name = 'news/postCategory.html'
-#     context_object_name = 'post'
-#     paginate_by = 6
-#     slug_field = "slug"
-#     slug_url_kwarg = "article_slug"
-    
-#     def get_object(self):
-#         category = get_object_or_404(Category, slug=self.kwargs['slug'])
-#         return category
-    
-#     def get_queryset(self):
-#         slug=self.kwargs.get("slug")
-#         if slug:
-#             post  = Post.objects.all()
-#             category = get_object_or_404(Category, slug=slug)
-#             posts = post.filter(category=category).order_by('-id')
-#             return posts
-    
-#     def get_context_data(self, **kwargs):
-#         category_count =  get_category_count()
-#         most_recent = Post.objects.order_by('-timestamp')[:3]
-#         categories = Category.objects.all()
-#         tags = Tag.objects.all()
-#         context = super().get_context_data(**kwargs)
-#         context["category_count"] = category_count
-#         context["most_recent"] = most_recent
-#         context["tags"] = Tag.objects.all()
-#         context["categories"] = categories
-#         return context
-
 def postCategory(request, category_slug):
     category_count =  get_category_count()
     most_recent = Post.objects.order_by('-timestamp')[:3]
