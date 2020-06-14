@@ -42,7 +42,7 @@ class Category(models.Model):
         return self.name
    
 class Post(models.Model):
-    title = models.CharField(max_length=500, null=True, blank=True, unique=True)
+    title = models.CharField(max_length=500, null=True, unique=True)
     slug = models.SlugField(max_length=500, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     content = RichTextField(null=True, blank=True)

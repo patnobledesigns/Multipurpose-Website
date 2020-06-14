@@ -8,4 +8,5 @@ CKEDITOR.editorConfig = function( config ) {
 		element: 'font',
 		attributes: { 'color': '#000000' }
 	};
+	// config.colorButton_enableAutomatic = false;
 };
